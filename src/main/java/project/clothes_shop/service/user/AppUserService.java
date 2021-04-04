@@ -2,6 +2,7 @@ package project.clothes_shop.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -55,6 +56,15 @@ public class AppUserService implements IAppUserService {
 
     @Override
     public AppUser getCurrentUser() {
-        return null;
+        AppUser appUser;
+        String email;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails) principal).getUsername();
+        } else {
+            email = principal.toString();
+        }
+        appUser = appUserRepo.findByEmail(email);
+        return appUser;
     }
 }

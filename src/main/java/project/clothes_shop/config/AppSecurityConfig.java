@@ -26,12 +26,17 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/register").permitAll()
                 .and()
+                .authorizeRequests().antMatchers("/").hasRole("USER")
+                .and()
                 .formLogin()
+                .loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .and().exceptionHandling().accessDeniedPage("/denied-access");
+                .and().exceptionHandling().accessDeniedPage("/denied-access")
+                /*set up remember me by spring security 5*/
+                .and().rememberMe().rememberMeParameter("remember-me");
         http.csrf().disable();
     }
 }
