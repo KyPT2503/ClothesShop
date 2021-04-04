@@ -7,13 +7,10 @@ import javax.persistence.*;
 public class CartDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
     @ManyToOne
-    @Column(name = "cart_id")
     private Cart cart;
     @ManyToOne
-    @Column(name = "clothes_id")
     private Clothes clothes;
     @Column(name = "amount")
     private int amount;

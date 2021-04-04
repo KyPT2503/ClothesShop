@@ -17,12 +17,11 @@ public class AppUser {
     private String password;
     private String name;
     @Pattern(regexp = "[0-9]*", message = "Số điện thoại không hợp lệ.")
+    @Column(name = "phone_number")
     private String phoneNumber;
     private String address;
     @ManyToOne
     private AppRole role;
-    @OneToOne
-    private Cart cart;
 
     public AppUser() {
     }
@@ -81,13 +80,5 @@ public class AppUser {
 
     public void setRole(AppRole role) {
         this.role = role;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 }

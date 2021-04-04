@@ -3,14 +3,14 @@ package project.clothes_shop.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "payment")
-public class Payment {
+@Table(name = "color")
+public class Color {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    public Payment() {
+    public Color() {
     }
 
     public Long getId() {
