@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table
+@Table(name = "app_user")
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class AppUser {
     @Size(min = 8, message = "Mật khẩu phải nhiều hơn 8 ký tự.")
     private String password;
     private String name;
-    @Pattern(regexp = "[0-9]*}", message = "Số điện thoại không hợp lệ.")
+    @Pattern(regexp = "[0-9]*", message = "Số điện thoại không hợp lệ.")
     private String phoneNumber;
     private String address;
     @ManyToOne
