@@ -30,37 +30,43 @@
         <div class="row">
             <div class="col-lg-4"></div>
             <div class="col-lg-4">
-                <div class="register-form">
+                <form class="register-form" th:action="@{/user-register}" method="post" th:object="${user_register}">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="First Name">
-                        </div>
-                        <div class="col-md-12">
-                            <label>Last Name"</label>
-                            <input class="form-control" type="text" placeholder="Last Name">
+                            <label>Họ và tên</label>
+                            <input th:value="*{name}" name="name" class="form-control" type="text" placeholder="Họ và tên" required>
                         </div>
                         <div class="col-md-12">
                             <label>E-mail</label>
-                            <input class="form-control" type="email" placeholder="E-mail" size=4>
+                            <input th:value="*{email}" name="email" class="form-control" type="email" placeholder="E-mail" id="email" required>
+                            <p th:errors="*{email}" th:if="${#fields.hasErrors()}" style="color: darkred"></p>
+                            <p th:if="${message!=null}" th:text="${message}"
+                               style="color: darkred"></p>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Xác thực Email của bạn</label>
+                            <button class="btn" id="validate-email-button" type="button">Gửi mã</button>
+                        </div>
+                        <div class="col-md-12" id="for-email"></div>
+                        <div class="col-md-12">
+                            <label>Số điện thoại</label>
+                            <input th:value="*{phoneNumber}" name="phoneNumber" class="form-control" type="text" placeholder="Số điện thoại" required>
+                            <p th:errors="*{phoneNumber}" th:if="${#fields.hasErrors()}" style="color: darkred"></p>
                         </div>
                         <div class="col-md-12">
-                            <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="Mobile No">
+                            <label>Mật khẩu</label>
+                            <input th:value="*{password}" name="password" class="form-control" type="password" placeholder="Mật khẩu" required>
+                            <p th:errors="*{password}" th:if="${#fields.hasErrors()}" style="color: darkred"></p>
                         </div>
                         <div class="col-md-12">
-                            <label>Password</label>
-                            <input class="form-control" type="text" placeholder="Password">
+                            <label>Địa chỉ</label>
+                            <input th:value="*{address}" name="address" class="form-control" type="text" placeholder="Địa chỉ" required>
                         </div>
                         <div class="col-md-12">
-                            <label>Retype Password</label>
-                            <input class="form-control" type="text" placeholder="Password">
-                        </div>
-                        <div class="col-md-12">
-                            <button class="btn">Submit</button>
+                            <button class="btn" type="submit">Đăng ký</button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="col-lg-4"></div>
         </div>
@@ -79,5 +85,22 @@
 <script th:src="@{user/lib/easing/easing.min.js}"></script>
 <script th:src="@{user/lib/slick/slick.min.js}"></script>
 <script th:src="@{user/js/main.js}"></script>
+<script th:src="@{js/jquery.js}"></script>
+<script>
+    $(document).ready(function () {
+        $(document).on("click", "#validate-email-button", function () {
+            $.ajax({
+                type: "GET",
+                url: "/mail-validate/" + $('#email').val(),
+                success: function () {
+                    $('#for-email').append(`<input name="code" class="form-control" type="text" placeholder="Nhập mã ..." required>`)
+                },
+                fail: function () {
+                    alert("Sending code failed!");
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>

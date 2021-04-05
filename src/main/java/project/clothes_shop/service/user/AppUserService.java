@@ -25,7 +25,7 @@ public class AppUserService implements IAppUserService {
 
     @Override
     public AppUser add(AppUser appUser) {
-        return null;
+        return appUserRepo.save(appUser);
     }
 
     @Override

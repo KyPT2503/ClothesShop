@@ -1,6 +1,7 @@
 package project.clothes_shop.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Entity
 @Table
@@ -8,6 +9,7 @@ public class MailAndCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Email(message = "Email không hợp lệ")
     private String email;
     private String code;
 
