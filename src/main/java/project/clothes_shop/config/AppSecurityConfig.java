@@ -28,6 +28,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/").permitAll()
                 .and()
+                .authorizeRequests().antMatchers("/admin/**").permitAll()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("email")

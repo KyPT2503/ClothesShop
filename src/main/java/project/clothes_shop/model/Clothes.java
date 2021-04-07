@@ -9,4 +9,34 @@ public class Clothes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private boolean status;
+    @OneToOne
+    @JoinColumn(name = "clothes_detail_id")
+    private ClothesDetail clothesDetail;
+
+    public Clothes() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public ClothesDetail getClothesDetail() {
+        return clothesDetail;
+    }
+
+    public void setClothesDetail(ClothesDetail clothesDetail) {
+        this.clothesDetail = clothesDetail;
+    }
 }

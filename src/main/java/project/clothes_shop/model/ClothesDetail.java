@@ -1,5 +1,6 @@
 package project.clothes_shop.model;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -18,6 +19,10 @@ public class ClothesDetail {
     private int quantity;
     private int viewCount;
     private int soldAmount;
+    @ManyToOne
+    private Size size;
+    @ManyToOne
+    private Color color;
     @Transient
     private List<String> sources;
     @Transient
@@ -104,5 +109,21 @@ public class ClothesDetail {
 
     public void setSources(List<String> sources) {
         this.sources = sources;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
