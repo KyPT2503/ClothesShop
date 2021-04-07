@@ -11,7 +11,7 @@ public class Clothes {
     private boolean status;
     @OneToOne
     @JoinColumn(name = "clothes_detail_id")
-    private ClothesDetail clothesDetail;
+    private ClothesDetail clothesDetail = new ClothesDetail();
 
     public Clothes() {
     }

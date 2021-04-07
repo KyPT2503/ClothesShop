@@ -39,23 +39,19 @@ public class ProductController {
         return new ModelAndView("admin/products");
     }
 
-    @PostMapping("/add")
-    public Clothes addOrSave(@RequestParam(value = "id") Long id, @RequestParam("name") String name, @RequestParam("code") String code, @RequestParam("price") double price, @RequestParam("description") String description, @RequestParam("quantity") int quantity, @RequestParam("size") Long sizeId, @RequestParam("color") Long colorId/*, @RequestParam(value = "images") List<MultipartFile> imageFiles*/) {
-        // set clothes detail
-        ClothesDetail clothesDetail = new ClothesDetail();
-        clothesDetail.setName(name);
-        clothesDetail.setCode(code);
-        clothesDetail.setPrice(price);
-        clothesDetail.setDescription(description);
-        clothesDetail.setQuantity(quantity);
-        clothesDetail.setSize(sizeService.findById(sizeId));
-        clothesDetail.setColor(colorService.findById(colorId));
-        /*clothesDetail.setImageFiles(imageFiles);*/
+    @GetMapping("/add")
+    public ModelAndView showAddPage() {
+        return new ModelAndView("admin/add", "clothes", new Clothes());
+    }
 
-        // clothes
-        Clothes clothes = new Clothes();
-        clothes.setId(id);
-        clothes.setClothesDetail(clothesDetail);
-        return clothesService.add(clothes);
+    @GetMapping("/update/{id}")
+    public ModelAndView showUpdatePage(@PathVariable("id") Clothes clothes) {
+        return new ModelAndView("admin/add", "clothes", clothes);
+    }
+
+    @PostMapping("/add-clothes")
+    public Clothes addOrSave(@ModelAttribute("clothes") Clothes clothes) {
+        clothesService.add(clothes);
+        return clothes;
     }
 }
