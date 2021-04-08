@@ -5,13 +5,17 @@ import org.springframework.stereotype.Service;
 import project.clothes_shop.model.ClothesDetail;
 import project.clothes_shop.model.ClothesImage;
 import project.clothes_shop.repo.ClothesDetailRepo;
+import project.clothes_shop.service.clothes_image.ClothesImageService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ClothesDetailService implements IClothesDetailService {
     @Autowired
     private ClothesDetailRepo clothesDetailRepo;
+    @Autowired
+    private ClothesImageService clothesImageService;
 
     @Override
     public List<ClothesDetail> findAll() {
@@ -35,7 +39,14 @@ public class ClothesDetailService implements IClothesDetailService {
 
     @Override
     public ClothesDetail findById(Long id) {
-        return null;
+        ClothesDetail clothesDetail = clothesDetailRepo.getOne(id);
+        List<ClothesImage> clothesImages = clothesImageService.findByClothesDetail(clothesDetail);
+        List<String> sources = new ArrayList<>();
+        for (ClothesImage clothesImage : clothesImages) {
+            sources.add(clothesImage.getSource());
+        }
+        clothesDetail.setSources(sources);
+        return clothesDetail;
     }
 
     @Override
