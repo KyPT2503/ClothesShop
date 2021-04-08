@@ -1,6 +1,8 @@
 package project.clothes_shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,8 +37,8 @@ public class ProductController {
     }
 
     @GetMapping("")
-    public ModelAndView showProducts() {
-        return new ModelAndView("admin/products");
+    public ModelAndView showProducts(@PageableDefault(size = 6) Pageable pageable) {
+        return new ModelAndView("admin/products", "clothes", clothesService.findPageable(pageable));
     }
 
     @GetMapping("/add")
@@ -50,8 +52,13 @@ public class ProductController {
     }
 
     @PostMapping("/add-clothes")
-    public Clothes addOrSave(@ModelAttribute("clothes") Clothes clothes) {
+    public ModelAndView addOrSave(@ModelAttribute("clothes") Clothes clothes) {
         clothesService.add(clothes);
-        return clothes;
+        return new ModelAndView("redirect:/admin/product");
+    }
+
+    @PutMapping("/disable/{id}")
+    public void disableClothes(@PathVariable("id") Clothes clothes) {
+        clothesService.disable(clothes);
     }
 }

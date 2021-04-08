@@ -2,6 +2,8 @@ package project.clothes_shop.service.clothes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
@@ -31,7 +33,7 @@ public class ClothesService implements IClothesService {
 
     @Override
     public List<Clothes> findAll() {
-        return null;
+        return (List<Clothes>) clothesRepo.findAll();
     }
 
     @Override
@@ -103,5 +105,16 @@ public class ClothesService implements IClothesService {
     @Override
     public boolean isExist(Clothes clothes) {
         return clothesRepo.existsById(clothes.getId());
+    }
+
+    @Override
+    public Page<Clothes> findPageable(Pageable pageable) {
+        return clothesRepo.findAllByStatus(true, pageable);
+    }
+
+    @Override
+    public void disable(Clothes clothes) {
+        clothes.setStatus(false);
+        clothesRepo.save(clothes);
     }
 }

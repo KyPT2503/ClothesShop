@@ -10,11 +10,13 @@
     <link rel="stylesheet" th:href="@{/admin/css/fontawesome.min.css}">
     <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/admin/css/templatemo-style.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body id="reportsPage">
 <nav th:replace="admin/layout::nav"></nav>
-<div class="container mt-5">
+<div class="container-fluid mt-5">
     <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-products">
@@ -23,22 +25,35 @@
                         <thead>
                         <tr>
                             <th scope="col">&nbsp;</th>
-                            <th scope="col">PRODUCT NAME</th>
-                            <th scope="col">UNIT SOLD</th>
-                            <th scope="col">IN STOCK</th>
-                            <th scope="col">EXPIRE DATE</th>
+                            <th scope="col">Tên</th>
+                            <th scope="col">Mã</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Mô tả</th>
+                            <th scope="col">Số lượng còn lại</th>
+                            <th scope="col">Đã bán</th>
+                            <th scope="col">Số lượt xem</th>
+                            <th scope="col">&nbsp;</th>
                             <th scope="col">&nbsp;</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr th:each="cloth:${clothes}">
                             <th scope="row"><input type="checkbox"/></th>
-                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                            <td>1,450</td>
-                            <td>550</td>
-                            <td>28 March 2019</td>
+                            <td class="tm-product-name" th:text="${cloth.clothesDetail.name}"></td>
+                            <td class="tm-product-name" th:text="${cloth.clothesDetail.code}"></td>
+                            <td class="tm-product-name" th:text="${cloth.clothesDetail.price}"></td>
+                            <td class="tm-product-name" th:text="${cloth.clothesDetail.description}"></td>
+                            <td class="tm-product-name" th:text="${cloth.clothesDetail.quantity}"></td>
+                            <td class="tm-product-name" th:text="${cloth.clothesDetail.soldAmount}"></td>
+                            <td class="tm-product-name" th:text="${cloth.clothesDetail.viewCount}"></td>
                             <td>
-                                <a href="#" class="tm-product-delete-link">
+                                <a th:href="@{'/admin/product/update/'+${cloth.id}}" class="tm-product-delete-link"
+                                   style="color: white;">
+                                    <i class="fas fa-pen-alt tm-product-delete-icon"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" class="tm-product-delete-link remove-clothes" th:id="${cloth.id}">
                                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
                                 </a>
                             </td>
@@ -46,11 +61,18 @@
                         </tbody>
                     </table>
                 </div>
+                <!--Pageable-->
+                <div>
+                    <a style="color: white" th:href="@{'/admin/product'(page=${clothes.number - 1})}"
+                       th:if="${clothes.hasPrevious()}">Previous</a>
+                    <span th:text="${clothes.number + 1}"></span>/<span th:text="${clothes.totalPages}"></span>
+                    <a style="color: white" th:href="@{'/admin/product'(page=${clothes.number + 1})}"
+                       th:if="${clothes.hasNext()}">Next</a>
+                </div>
+                <br>
                 <!-- table container -->
-                <a th:href="@{/admin/product/add}" class="btn btn-primary btn-block text-uppercase mb-3">ADD NEW CLOTHES</a>
-                <button class="btn btn-primary btn-block text-uppercase">
-                    Delete selected products
-                </button>
+                <a th:href="@{/admin/product/add}" class="btn btn-primary btn-block text-uppercase mb-3">THÊM SẢN
+                    PHẨM</a>
             </div>
         </div>
     </div>
@@ -73,6 +95,19 @@
             window.location.href = "edit-product.html";
         });
     });
+    $(document).ready(function () {
+        $(document).on("click", ".remove-clothes", function () {
+            let node = $(this);
+            console.log(node.attr("id"));
+            $.ajax({
+                type: "PUT",
+                url: "/admin/product/disable/" + node.attr("id"),
+                success: function () {
+                    node.parent().parent().remove();
+                }
+            })
+        })
+    })
 </script>
 </body>
 </html>
