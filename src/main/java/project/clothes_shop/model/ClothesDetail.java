@@ -23,6 +23,10 @@ public class ClothesDetail {
     private Size size;
     @ManyToOne
     private Color color;
+    @ManyToOne
+    private Category category;
+    @ManyToOne
+    private Brand brand;
     @Transient
     private List<String> sources;
     @Transient
@@ -125,5 +129,21 @@ public class ClothesDetail {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }

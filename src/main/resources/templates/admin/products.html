@@ -28,6 +28,8 @@
                             <th scope="col">Tên</th>
                             <th scope="col">Mã</th>
                             <th scope="col">Giá</th>
+                            <th scope="col">Thể loại</th>
+                            <th scope="col">Hãng sản xuất</th>
                             <th scope="col">Mô tả</th>
                             <th scope="col">Số lượng còn lại</th>
                             <th scope="col">Đã bán</th>
@@ -42,6 +44,8 @@
                             <td class="tm-product-name" th:text="${cloth.clothesDetail.name}"></td>
                             <td class="tm-product-name" th:text="${cloth.clothesDetail.code}"></td>
                             <td class="tm-product-name" th:text="${cloth.clothesDetail.price}"></td>
+                            <td class="tm-product-name" th:text="${cloth.clothesDetail.category.name}"></td>
+                            <td class="tm-product-name" th:text="${cloth.clothesDetail.brand.name}"></td>
                             <td class="tm-product-name" th:text="${cloth.clothesDetail.description}"></td>
                             <td class="tm-product-name" th:text="${cloth.clothesDetail.quantity}"></td>
                             <td class="tm-product-name" th:text="${cloth.clothesDetail.soldAmount}"></td>

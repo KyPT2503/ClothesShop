@@ -6,10 +6,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import project.clothes_shop.model.Clothes;
-import project.clothes_shop.model.ClothesDetail;
-import project.clothes_shop.model.Color;
-import project.clothes_shop.model.Size;
+import project.clothes_shop.model.*;
+import project.clothes_shop.service.brand.IBrandService;
+import project.clothes_shop.service.category.ICategoryService;
 import project.clothes_shop.service.clothes.IClothesService;
 import project.clothes_shop.service.color.IColorService;
 import project.clothes_shop.service.size.ISizeService;
@@ -25,6 +24,20 @@ public class ProductController {
     private ISizeService sizeService;
     @Autowired
     private IColorService colorService;
+    @Autowired
+    private IBrandService brandService;
+    @Autowired
+    private ICategoryService categoryService;
+
+    @ModelAttribute("brands")
+    public List<Brand> getAllBrand() {
+        return brandService.findAll();
+    }
+
+    @ModelAttribute("categories")
+    public List<Category> getAllCategory() {
+        return categoryService.findAll();
+    }
 
     @ModelAttribute("colors")
     public List<Color> getAllColor() {

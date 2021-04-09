@@ -129,7 +129,42 @@ alter table clothes_detail
     add constraint fk_color foreign key (color_id) references color (id);
 
 alter table custom_order
-add column order_contact_id bigint not null;
+    add column order_contact_id bigint not null;
 
 alter table custom_order
-add constraint fk_order_contact foreign key (order_contact_id) references order_contact(id);
+    add constraint fk_order_contact foreign key (order_contact_id) references order_contact (id);
+
+alter table clothes
+    add column clothes_detail_id bigint not null;
+
+alter table clothes
+    add constraint fk_clothes_detail_fr_clothes foreign key (clothes_detail_id) references clothes_detail (id);
+
+alter table clothes_detail
+    drop constraint fk_clothes;
+
+alter table clothes_detail
+    drop column clothes_id;
+
+create table category
+(
+    id   bigint auto_increment primary key,
+    name varchar(255) not null
+);
+
+create table brand
+(
+    id   bigint auto_increment primary key,
+    name varchar(255) not null
+);
+
+alter table clothes_detail
+    add column category_id bigint not null;
+alter table clothes_detail
+    add column brand_id bigint not null;
+
+alter table clothes_detail
+    add constraint fk_category foreign key (category_id) references category (id);
+
+alter table clothes_detail
+add constraint fk_brand foreign key (brand_id) references brand(id);

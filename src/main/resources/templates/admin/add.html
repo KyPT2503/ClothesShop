@@ -34,20 +34,39 @@
                                        th:value="*{id}"/>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="name">Tên sản phẩm</label><input id="name" name="clothesDetail.name" type="text"
-                                                                     class="form-control validate" required
-                                                                     th:value="*{clothesDetail.name}"/>
+                                <label for="name">Tên sản phẩm</label><input id="name" name="clothesDetail.name"
+                                                                             type="text"
+                                                                             class="form-control validate" required
+                                                                             th:value="*{clothesDetail.name}"/>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="code">Mã sản phẩm</label><input id="code" name="clothesDetail.code" type="text"
-                                                                     class="form-control validate" required
-                                                                     th:value="*{clothesDetail.code}"/>
+                                <label for="code">Mã sản phẩm</label><input id="code" name="clothesDetail.code"
+                                                                            type="text"
+                                                                            class="form-control validate" required
+                                                                            th:value="*{clothesDetail.code}"/>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="color">Thể loại</label><select class="custom-select tm-select-accounts"
+                                                                           name="clothesDetail.category">
+                                <option th:selected="${clothes.id!=null and category.id==clothes.clothesDetail.category.id}"
+                                        th:each="category:${categories}"
+                                        th:value="${category.id}"
+                                        th:text="${category.name}"></option>
+                            </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="color">Hãng sản xuất</label><select class="custom-select tm-select-accounts"
+                                                                                name="clothesDetail.brand">
+                                <option th:selected="${clothes.id!=null and brand.id==clothes.clothesDetail.brand.id}"
+                                        th:value="${brand.id}" th:each="brand:${brands}"
+                                        th:text="${brand.name}"></option>
+                            </select>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="price">Giá</label><input id="price" name="clothesDetail.price" type="text"
-                                                                       class="form-control validate"
-                                                                       required
-                                                                       th:value="*{clothesDetail.price}"/>
+                                                                     class="form-control validate"
+                                                                     required
+                                                                     th:value="*{clothesDetail.price}"/>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="quantity">Số lượng</label><input id="quantity" name="clothesDetail.quantity"
@@ -57,23 +76,24 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="description">Mô tả sản phẩm</label><textarea id="description"
-                                                                                      name="clothesDetail.description"
-                                                                                      class="form-control validate"
-                                                                                      rows="3"
-                                                                                      required
-                                                                                      th:text="*{clothesDetail.description}"></textarea>
+                                                                                         name="clothesDetail.description"
+                                                                                         class="form-control validate"
+                                                                                         rows="3"
+                                                                                         required
+                                                                                         th:text="*{clothesDetail.description}"></textarea>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="size">Kích cỡ</label><select class="custom-select tm-select-accounts" id="size"
-                                                                      name="clothesDetail.size">
-                                <option th:value="${size.id}" th:each="size:${sizes}"
+                                <label for="size">Kích cỡ</label><select class="custom-select tm-select-accounts"
+                                                                         id="size"
+                                                                         name="clothesDetail.size">
+                                <option th:selected="${clothes.id!=null and size.id==clothes.clothesDetail.size.id}" th:value="${size.id}" th:each="size:${sizes}"
                                         th:text="${size.name}"></option>
                             </select>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="color">Màu</label><select class="custom-select tm-select-accounts"
-                                                                        id="color" name="clothesDetail.color">
-                                <option th:value="${color.id}" th:each="color:${colors}"
+                                                                      id="color" name="clothesDetail.color">
+                                <option th:selected="${clothes.id!=null and color.id==clothes.clothesDetail.color.id}" th:value="${color.id}" th:each="color:${colors}"
                                         th:text="${color.name}"></option>
                             </select>
                             </div>
@@ -91,7 +111,8 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block text-uppercase" th:text="${clothes.id==null?'Thêm':'Sửa'}"></button>
+                        <button type="submit" class="btn btn-primary btn-block text-uppercase"
+                                th:text="${clothes.id==null?'Thêm':'Sửa'}"></button>
                     </div>
                 </form>
             </div>
