@@ -99,7 +99,9 @@ public class ClothesService implements IClothesService {
 
     @Override
     public Clothes findById(Long id) {
-        return clothesRepo.findById(id).get();
+        Clothes clothes = clothesRepo.findById(id).get();
+        this.setSourcesForClothesDetail(clothes.getClothesDetail());
+        return clothes;
     }
 
     @Override
@@ -109,12 +111,43 @@ public class ClothesService implements IClothesService {
 
     @Override
     public Page<Clothes> findPageable(Pageable pageable) {
-        return clothesRepo.findAllByStatus(true, pageable);
+        Page<Clothes> clothes = clothesRepo.findAllByStatus(true, pageable);
+        this.setAllSourcePageClothes(clothes);
+        return clothes;
     }
 
     @Override
     public void disable(Clothes clothes) {
         clothes.setStatus(false);
         clothesRepo.save(clothes);
+    }
+
+    @Override
+    public List<Clothes> fromDetailToClothes(List<ClothesDetail> clothesDetails) {
+        List<Clothes> clothes = new ArrayList<>();
+        for (ClothesDetail clothesDetail : clothesDetails) {
+            clothes.add(clothesRepo.findFirstByClothesDetail(clothesDetail));
+        }
+        this.setAllSourceListClothes(clothes);
+        return clothes;
+    }
+
+    private void setSourcesForClothesDetail(ClothesDetail clothesDetail) {
+        List<ClothesImage> clothesImages = clothesImageService.findByClothesDetail(clothesDetail);
+        List<String> sources = new ArrayList<>();
+        for (ClothesImage clothesImage : clothesImages) {
+            sources.add(clothesImage.getSource());
+        }
+        clothesDetail.setSources(sources);
+    }
+
+    private void setAllSourceListClothes(List<Clothes> clothes) {
+        for (Clothes cloth : clothes) {
+            this.setSourcesForClothesDetail(cloth.getClothesDetail());
+        }
+    }
+
+    private void setAllSourcePageClothes(Page<Clothes> clothes) {
+        this.setAllSourceListClothes(clothes.toList());
     }
 }

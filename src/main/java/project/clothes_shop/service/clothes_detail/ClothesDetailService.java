@@ -2,11 +2,14 @@ package project.clothes_shop.service.clothes_detail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.clothes_shop.dto.ClothesSearchDTO;
 import project.clothes_shop.model.ClothesDetail;
 import project.clothes_shop.model.ClothesImage;
 import project.clothes_shop.repo.ClothesDetailRepo;
 import project.clothes_shop.service.clothes_image.ClothesImageService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,8 @@ public class ClothesDetailService implements IClothesDetailService {
     private ClothesDetailRepo clothesDetailRepo;
     @Autowired
     private ClothesImageService clothesImageService;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<ClothesDetail> findAll() {
@@ -52,5 +57,30 @@ public class ClothesDetailService implements IClothesDetailService {
     @Override
     public boolean isExist(ClothesDetail clothesDetail) {
         return clothesDetailRepo.existsById(clothesDetail.getId());
+    }
+
+    @Override
+    public List<ClothesDetail> searchDTO(ClothesSearchDTO clothesSearchDTO) {
+        StringBuilder query = new StringBuilder();
+        query.append("from ClothesDetail where 1=1 ");
+        if (clothesSearchDTO.getName() != null) {
+            query.append("and name like '%" + clothesSearchDTO.getName().trim() + "%' ");
+        }
+        if (clothesSearchDTO.getCategoryId() != null) {
+            query.append("and category_id=" + clothesSearchDTO.getCategoryId() + " ");
+        }
+        if (clothesSearchDTO.getBrandId() != null) {
+            query.append("and brand_id=" + clothesSearchDTO.getBrandId() + " ");
+        }
+        if (clothesSearchDTO.getColorId() != null) {
+            query.append("and color_id=" + clothesSearchDTO.getColorId() + " ");
+        }
+        if (clothesSearchDTO.getSizeId() != null) {
+            query.append("and size_id=" + clothesSearchDTO.getSizeId() + " ");
+        }
+        if (clothesSearchDTO.getPriceTo() > 0) {
+            query.append("and price>=" + clothesSearchDTO.getPriceFrom() + " and price<=" + clothesSearchDTO.getPriceTo() + " ");
+        }
+        return entityManager.createQuery(query.toString()).getResultList();
     }
 }

@@ -14,4 +14,6 @@ public interface IClothesService extends IGeneralService<Clothes> {
     Page<Clothes> findPageable(Pageable pageable);
 
     void disable(Clothes clothes);
+
+    List<Clothes> fromDetailToClothes(List<ClothesDetail> clothesDetails);
 }
