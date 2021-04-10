@@ -141,7 +141,8 @@ public class ClothesService implements IClothesService {
         clothesDetail.setSources(sources);
     }
 
-    private void setAllSourceListClothes(List<Clothes> clothes) {
+    @Override
+    public void setAllSourceListClothes(List<Clothes> clothes) {
         for (Clothes cloth : clothes) {
             this.setSourcesForClothesDetail(cloth.getClothesDetail());
         }

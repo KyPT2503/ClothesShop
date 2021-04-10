@@ -16,4 +16,5 @@ public interface IClothesService extends IGeneralService<Clothes> {
     void disable(Clothes clothes);
 
     List<Clothes> fromDetailToClothes(List<ClothesDetail> clothesDetails);
+    void setAllSourceListClothes(List<Clothes> clothes);
 }

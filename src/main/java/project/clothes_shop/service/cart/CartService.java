@@ -2,13 +2,14 @@ package project.clothes_shop.service.cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project.clothes_shop.model.AppUser;
-import project.clothes_shop.model.Cart;
+import project.clothes_shop.model.*;
 import project.clothes_shop.repo.CartRepo;
 import project.clothes_shop.service.cart_detail.CartDetailService;
+import project.clothes_shop.service.clothes.IClothesService;
 import project.clothes_shop.service.user.IAppUserService;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +20,8 @@ public class CartService implements ICartService {
     private CartDetailService cartDetailService;
     @Autowired
     private IAppUserService appUserService;
+    @Autowired
+    private IClothesService clothesService;
 
     @Override
     public List<Cart> findAll() {
@@ -82,6 +85,12 @@ public class CartService implements ICartService {
             // get cart by user
             cart = this.getCurrentCart(appUser);
         }
+        // set source for clothes_detail/clothes/cart_detail/cart
+        List<Clothes> clothes = new ArrayList<>();
+        for (CartDetail cartDetail : cart.getCartDetails()) {
+            clothes.add(cartDetail.getClothes());
+        }
+        clothesService.setAllSourceListClothes(clothes);
         return cart;
     }
 }

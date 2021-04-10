@@ -71,6 +71,7 @@ public class CartController {
 
     @ModelAttribute("current_cart")
     public Cart getCurrentCart(HttpSession session) {
+        Cart cart = cartService.getCurrentCart(session);
         return cartService.getCurrentCart(session);
     }
 
@@ -101,7 +102,7 @@ public class CartController {
         if (isAdd) {
             if (cartDetailIsExist) {
                 result.addAll(Arrays.asList("4", "Sản phẩm đã tồn tại trong giỏ hàng."));
-            } else if (quantity==0) {
+            } else if (quantity == 0) {
                 result.addAll(Arrays.asList("0", "Sản phẩm này hiện tại đã hết hàng."));
             } else {
                 // add new cart detail
