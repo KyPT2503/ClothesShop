@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import project.clothes_shop.dto.ClothesSearchDTO;
 import project.clothes_shop.model.*;
 import project.clothes_shop.service.brand.IBrandService;
+import project.clothes_shop.service.cart.ICartService;
 import project.clothes_shop.service.category.ICategoryService;
 import project.clothes_shop.service.clothes.IClothesService;
 import project.clothes_shop.service.clothes_detail.IClothesDetailService;
@@ -17,6 +18,7 @@ import project.clothes_shop.service.color.IColorService;
 import project.clothes_shop.service.size.ISizeService;
 import project.clothes_shop.service.user.IAppUserService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -36,6 +38,12 @@ public class ProductUserController {
     private IBrandService brandService;
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private ICartService cartService;
+    @ModelAttribute("current_cart")
+    public Cart getCurrentCart(HttpSession session) {
+        return cartService.getCurrentCart(session);
+    }
 
     @ModelAttribute("user")
     public AppUser getCurrentUser() {

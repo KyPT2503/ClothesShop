@@ -14,6 +14,16 @@
     <link th:href="@{/user/lib/slick/slick.css}" rel="stylesheet">
     <link th:href="@{/user/lib/slick/slick-theme.css}" rel="stylesheet">
     <link th:href="@{user/css/style.css}" rel="stylesheet">
+    <style>
+        #for-message {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+    </style>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
 </head>
 
 <body>
@@ -29,10 +39,15 @@
                         <div class="product-view-top">
                             <!--+++++++++++++++++++++++++++++SEARCH START+++++++++++++++++++++++++++-->
                             <form class="row" id="search-form">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="product-search">
                                         <input type="text" placeholder="Tên" id="name">
                                         <button><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="product-search">
+                                        <p style="line-height:30px;"><strong>Giá từ</strong></p>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -40,12 +55,17 @@
                                         <input type="text" placeholder="VNĐ" id="priceFrom">
                                     </div>
                                 </div>
+                                <div class="col-md-1">
+                                    <div class="product-search">
+                                        <p style="line-height:30px;"><strong>đến</strong></p>
+                                    </div>
+                                </div>
                                 <div class="col-md-2">
                                     <div class="product-search">
                                         <input type="text" placeholder="VNĐ" id="priceTo">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="product-search">
                                         <select name="" id="categoryId" class="form-control">
                                             <option value="">Thể loại</option>
@@ -109,7 +129,8 @@
                                          alt="Product Image">
                                 </a>
                                 <div class="product-action">
-                                    <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                    <a class="button-add-to-cart" th:id="${cloth.id}" href=""><i
+                                            class="fa fa-cart-plus"></i></a>
                                     <a href="#"><i class="fa fa-heart"></i></a>
                                     <a href="#"><i class="fa fa-search"></i></a>
                                 </div>
@@ -392,12 +413,14 @@
 
 <!-- Back to Top -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-
+<!--for show message-->
+<div id="for-message"></div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script th:src="@{user/lib/easing/easing.min.js}"></script>
 <script th:src="@{user/lib/slick/slick.min.js}"></script>
 <script th:src="@{user/js/main.js}"></script>
 <script th:src="@{/js/user-product.js}"></script>
+<script th:src="@{/js/cart.js}"></script>
 </body>
 </html>

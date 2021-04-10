@@ -52,7 +52,7 @@ function insertProduct(id, name, source, price) {
                                          alt="Product Image">
                                 </a>
                                 <div class="product-action">
-                                    <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                    <a class="button-add-to-cart" id="${id}" href=""><i class="fa fa-cart-plus"></i></a>
                                     <a href="#"><i class="fa fa-heart"></i></a>
                                     <a href="#"><i class="fa fa-search"></i></a>
                                 </div>
@@ -72,4 +72,13 @@ $(document).ready(function () {
 
         e.preventDefault();
     });
+    $(document).on("click", ".button-add-to-cart", function (e) {
+        let button = $(e.target);
+        if (button.attr("id") === undefined) {
+            button = button.parent();
+        }
+        console.log(button.attr("id"));
+        addToCart(button.attr("id"), 1, 1);
+        e.preventDefault();
+    })
 })

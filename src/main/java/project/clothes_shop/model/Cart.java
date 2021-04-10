@@ -1,6 +1,7 @@
 package project.clothes_shop.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cart")
@@ -10,6 +11,8 @@ public class Cart {
     private Long id;
     @OneToOne
     private AppUser appUser;
+    @Transient
+    private List<CartDetail> cartDetails;
 
     public Cart() {
     }
@@ -28,5 +31,13 @@ public class Cart {
 
     public void setAppUser(AppUser appUser) {
         this.appUser = appUser;
+    }
+
+    public List<CartDetail> getCartDetails() {
+        return cartDetails;
+    }
+
+    public void setCartDetails(List<CartDetail> cartDetails) {
+        this.cartDetails = cartDetails;
     }
 }
