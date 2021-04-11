@@ -80,6 +80,20 @@
                                                 class="btn"></button>
                                     </div>
                                 </div>
+                                <div class="p-color">
+                                    <h4>Hãng:</h4>
+                                    <div class="btn-group btn-group-sm">
+                                        <button th:text="*{clothesDetail.brand.name}" type="button"
+                                                class="btn"></button>
+                                    </div>
+                                </div>
+                                <div class="p-color">
+                                    <h4>Thể loại:</h4>
+                                    <div class="btn-group btn-group-sm">
+                                        <button th:text="*{clothesDetail.category.name}" type="button"
+                                                class="btn"></button>
+                                    </div>
+                                </div>
                                 <div class="price">
                                     <p style="text-decoration: solid orangered underline" th:text="*{clothesDetail.viewCount+' Lượt xem.'}"></p>
                                 </div>
