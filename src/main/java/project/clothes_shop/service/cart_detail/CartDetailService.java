@@ -58,4 +58,9 @@ public class CartDetailService implements ICartDetailService {
     public boolean isExist(Clothes clothes, Cart cart) {
         return cartDetailRepo.getFirstByClothesAndCart(clothes, cart) != null;
     }
+
+    @Override
+    public void removeByCartAndClothes(Cart cart, Clothes clothes) {
+        cartDetailRepo.delete(cartDetailRepo.getFirstByClothesAndCart(clothes, cart));
+    }
 }

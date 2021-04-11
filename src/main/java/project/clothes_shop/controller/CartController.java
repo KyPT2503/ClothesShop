@@ -123,4 +123,9 @@ public class CartController {
         }
         return result;
     }
+
+    @DeleteMapping("/remove/{clothesId}")
+    public void removeFromCart(HttpSession session, @PathVariable("clothesId") Clothes clothes) {
+        cartDetailService.removeByCartAndClothes(cartService.getCurrentCart(session), clothes);
+    }
 }

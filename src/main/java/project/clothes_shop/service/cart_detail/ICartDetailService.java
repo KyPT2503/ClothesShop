@@ -11,4 +11,6 @@ public interface ICartDetailService extends IGeneralService<CartDetail> {
     List<CartDetail> getCartDetailsByCart(Cart cart);
 
     boolean isExist(Clothes clothes, Cart cart);
+
+    void removeByCartAndClothes(Cart cart, Clothes clothes);
 }
