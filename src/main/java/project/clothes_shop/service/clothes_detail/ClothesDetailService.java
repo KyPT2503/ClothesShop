@@ -83,4 +83,10 @@ public class ClothesDetailService implements IClothesDetailService {
         }
         return entityManager.createQuery(query.toString()).getResultList();
     }
+
+    @Override
+    public void upViewCount(ClothesDetail clothesDetail) {
+        clothesDetail.setViewCount(clothesDetail.getViewCount() + 1);
+        clothesDetailRepo.save(clothesDetail);
+    }
 }

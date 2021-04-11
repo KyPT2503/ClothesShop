@@ -10,4 +10,6 @@ public interface IClothesDetailService extends IGeneralService<ClothesDetail> {
     boolean isExist(ClothesDetail clothesDetail);
 
     List<ClothesDetail> searchDTO(ClothesSearchDTO clothesSearchDTO);
+
+    void upViewCount(ClothesDetail clothesDetail);
 }

@@ -148,6 +148,11 @@ public class ClothesService implements IClothesService {
         }
     }
 
+    @Override
+    public void setSourceForClothes(Clothes clothes) {
+        this.setSourcesForClothesDetail(clothes.getClothesDetail());
+    }
+
     private void setAllSourcePageClothes(Page<Clothes> clothes) {
         this.setAllSourceListClothes(clothes.toList());
     }

@@ -69,4 +69,10 @@ $(document).ready(function () {
             }
         })
     })
+    $(document).on("click", ".button-add-to-cart", function (e) {
+        let clothesId = $('.button-add-to-cart').attr("id");
+        let amount = $('#amount-in-detail').val();
+        addToCart(clothesId, amount, 0);
+        e.preventDefault();
+    })
 })

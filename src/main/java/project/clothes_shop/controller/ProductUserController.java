@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import project.clothes_shop.dto.ClothesSearchDTO;
@@ -40,6 +39,7 @@ public class ProductUserController {
     private ICategoryService categoryService;
     @Autowired
     private ICartService cartService;
+
     @ModelAttribute("current_cart")
     public Cart getCurrentCart(HttpSession session) {
         return cartService.getCurrentCart(session);
@@ -79,5 +79,16 @@ public class ProductUserController {
     public ModelAndView showProducts(@PageableDefault(size = 9) Pageable pageable) {
         Page<Clothes> clothesPage = clothesService.findPageable(pageable);
         return new ModelAndView("user/products", "clothes", clothesService.findPageable(pageable));
+    }
+
+    @GetMapping("/detail/{id}")
+    public ModelAndView showProductDetail(@PathVariable("id") Clothes clothes) {
+        //update view
+        clothesDetailService.upViewCount(clothes.getClothesDetail());
+        //
+        ModelAndView modelAndView = new ModelAndView("user/detail");
+        clothesService.setSourceForClothes(clothes);
+        modelAndView.addObject("clothes", clothes);
+        return modelAndView;
     }
 }

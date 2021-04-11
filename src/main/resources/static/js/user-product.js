@@ -54,7 +54,7 @@ function insertProduct(id, name, source, price) {
                                 <div class="product-action">
                                     <a class="button-add-to-cart" id="${id}" href=""><i class="fa fa-cart-plus"></i></a>
                                     <a href="#"><i class="fa fa-heart"></i></a>
-                                    <a href="#"><i class="fa fa-search"></i></a>
+                                    <a href="/product/detail/${id}"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="product-price">
