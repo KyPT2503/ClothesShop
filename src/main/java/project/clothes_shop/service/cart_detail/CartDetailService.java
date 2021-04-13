@@ -63,4 +63,11 @@ public class CartDetailService implements ICartDetailService {
     public void removeByCartAndClothes(Cart cart, Clothes clothes) {
         cartDetailRepo.delete(cartDetailRepo.getFirstByClothesAndCart(clothes, cart));
     }
+
+    @Override
+    public void removeAllByCart(Cart cart) {
+        for (CartDetail cartDetail : cart.getCartDetails()) {
+            cartDetailRepo.delete(cartDetail);
+        }
+    }
 }

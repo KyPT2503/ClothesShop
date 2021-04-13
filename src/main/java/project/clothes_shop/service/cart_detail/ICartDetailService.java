@@ -13,4 +13,6 @@ public interface ICartDetailService extends IGeneralService<CartDetail> {
     boolean isExist(Clothes clothes, Cart cart);
 
     void removeByCartAndClothes(Cart cart, Clothes clothes);
+
+    void removeAllByCart(Cart cart);
 }

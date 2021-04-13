@@ -6,7 +6,7 @@ function addToCart(clothesId, amount, isAdd) {
             let code = messages[0];
             let message = messages[1];
             // handle message
-            let alert = `<div class="alert alert-dark alert-dismissible fade show">
+            let alert = `<div class="alert alert-primary alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             <strong>Thông báo!</strong> ${message}
                         </div>`;

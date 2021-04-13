@@ -1,6 +1,8 @@
 package project.clothes_shop.model;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "custom_order")
@@ -8,6 +10,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "date")
+    private Date date;
     @ManyToOne
     private OrderState orderState;
     @ManyToOne
@@ -16,6 +20,8 @@ public class Order {
     private Payment payment;
     @ManyToOne
     private OrderContact orderContact;
+    @Transient
+    private List<OrderDetail> orderDetails;
 
     public Order() {
     }
@@ -50,5 +56,29 @@ public class Order {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public OrderContact getOrderContact() {
+        return orderContact;
+    }
+
+    public void setOrderContact(OrderContact orderContact) {
+        this.orderContact = orderContact;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

@@ -13,11 +13,11 @@
             <div class="row">
                 <div class="col-sm-6">
                     <i class="fa fa-envelope"></i>
-                    support@email.com
+                    thekypccc@email.com
                 </div>
                 <div class="col-sm-6">
                     <i class="fa fa-phone-alt"></i>
-                    +012-345-6789
+                    0911 100 804
                 </div>
             </div>
         </div>
@@ -38,7 +38,8 @@
                         <a href="/" class="nav-item nav-link">Trang chủ</a>
                         <a href="/product" class="nav-item nav-link">Sản phẩm</a>
                         <a href="/cart" class="nav-item nav-link">Giỏ hàng</a>
-                        <a href="checkout.html" class="nav-item nav-link">Thanh toán</a>
+                        <a href="/checkout" class="nav-item nav-link">Thanh toán</a>
+                        <a href="/order" class="nav-item nav-link">Đơn hàng</a>
                         <a href="my-account.html" class="nav-item nav-link">Tài khoản</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Shop</a>
@@ -79,7 +80,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="search">
-                        <input type="text" placeholder="Search">
+                        <input type="text" placeholder="Tìm sản phẩm">
                         <button><i class="fa fa-search"></i></button>
                     </div>
                 </div>
@@ -91,7 +92,8 @@
                         </a>
                         <a href="/cart" class="btn cart">
                             <i class="fa fa-shopping-cart"></i>
-                            <span id="for-cart-size" th:if="${current_cart!=null}" th:text="${'('+current_cart.cartDetails.size()+')'}"></span>
+                            <span id="for-cart-size" th:if="${current_cart!=null}"
+                                  th:text="${'('+current_cart.cartDetails.size()+')'}"></span>
                             <span th:if="${current_cart==null}">(0)</span>
                         </a>
                     </div>

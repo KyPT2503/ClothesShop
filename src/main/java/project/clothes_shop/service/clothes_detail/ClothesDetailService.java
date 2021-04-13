@@ -89,4 +89,11 @@ public class ClothesDetailService implements IClothesDetailService {
         clothesDetail.setViewCount(clothesDetail.getViewCount() + 1);
         clothesDetailRepo.save(clothesDetail);
     }
+
+    @Override
+    public void updateSoldAmountAndQuantity(ClothesDetail clothesDetail, int soldAmount, int quantity) {
+        clothesDetail.setQuantity(quantity);
+        clothesDetail.setSoldAmount(soldAmount);
+        clothesDetailRepo.save(clothesDetail);
+    }
 }
