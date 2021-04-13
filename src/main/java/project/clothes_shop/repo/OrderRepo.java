@@ -5,9 +5,12 @@ import org.springframework.stereotype.Repository;
 import project.clothes_shop.model.AppUser;
 import project.clothes_shop.model.Order;
 
+import java.sql.Date;
 import java.util.List;
 
 @Repository
 public interface OrderRepo extends JpaRepository<Order, Long> {
     List<Order> findAllByAppUser(AppUser appUser);
+
+    List<Order> findAllByDateBetween(Date start, Date end);
 }

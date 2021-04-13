@@ -1,12 +1,15 @@
 package project.clothes_shop.service.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.clothes_shop.model.AppUser;
 import project.clothes_shop.model.Order;
 import project.clothes_shop.repo.OrderRepo;
 import project.clothes_shop.service.order_detail.IOrderDetailService;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -76,5 +79,17 @@ public class OrderService implements IOrderService {
         for (Order order : orders) {
             this.setOrderDetailForOrder(order);
         }
+    }
+
+    @Override
+    public Page<Order> findPageable(Pageable pageable) {
+        Page<Order> orders = orderRepo.findAll(pageable);
+        this.setOrderDetailForListOrder(orders.toList());
+        return orders;
+    }
+
+    @Override
+    public List<Order> findByDateRange(Date start, Date end) {
+        return orderRepo.findAllByDateBetween(start,end);
     }
 }

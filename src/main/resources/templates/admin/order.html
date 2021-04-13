@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Product Page - Admin HTML Template</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700"/>
+    <link rel="stylesheet" th:href="@{/admin/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/templatemo-style.css}">
+    <link rel="stylesheet" th:href="@{/admin/jquery-ui-datepicker/jquery-ui.min.css}">
+    <style>
+        #for-show-order-detail td, #for-show-order-detail tr {
+            width: 400px;
+            border-bottom: solid #6d8da6 1px;
+            line-height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+<nav th:replace="admin/layout::nav"></nav>
+<!--========================Order List Start==========================-->
+<div class="col-12 tm-block-col">
+    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+        <form method="post" class="row" id="search-by-date-range">
+            <label>
+                <input
+                        id="start_date"
+                        name="expire_date"
+                        type="text"
+                        value="04/13/2021"
+                        class="form-control validate expire_date"
+                        data-large-mode="true"
+                />
+            </label>
+            <label>
+                <input
+                        id="end_date"
+                        name="expire_date"
+                        type="text"
+                        value="04/13/2021"
+                        class="form-control validate expire_date"
+                        data-large-mode="true"
+                />
+            </label>
+            <button class="btn-small btn-primary" style="height:50px;border-radius: 5px;">Tìm kiếm</button>
+        </form>
+        <h2 class="tm-block-title">Danh sách đơn hàng</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Mã đơn hàng.</th>
+                <th scope="col">Ngày đặt hàng</th>
+                <th scope="col">Tên người nhận</th>
+                <th scope="col">Địa chỉ người nhận</th>
+                <th scope="col">Liên hệ người nhận</th>
+                <th scope="col">Phương thức thanh toán</th>
+                <th scope="col">Trạng thái đơn hàng</th>
+                <th scope="col">Xem chi tiết</th>
+            </tr>
+            </thead>
+            <tbody id="for-show-when-search">
+            <tr th:each="order:${orders}">
+                <th scope="row"><b th:text="${'#'+order.id}"></b></th>
+                <td>
+                    <b th:text="${order.date}"></b>
+                </td>
+                <td>
+                    <b th:text="${order.orderContact.customerName}"></b>
+                </td>
+                <td>
+                    <b th:text="${order.orderContact.address}"></b>
+                </td>
+                <td>
+                    <b th:text="${order.orderContact.phoneNumber}"></b>
+                </td>
+                <td>
+                    <b th:text="${order.payment.name}"></b>
+                </td>
+                <td>
+                    <label>
+                        <input class="form-control-sm for-change-order-state" type="radio" value="1"
+                               th:name="${order.id}" th:checked="${order.orderState.id==1}">Xác
+                        nhận |
+                    </label>
+                    <label>
+                        <input class="form-control-sm for-change-order-state" type="radio" value="2"
+                               th:name="${order.id}" th:checked="${order.orderState.id==2}">Đang
+                        gửi |
+                    </label>
+                    <label>
+                        <input class="form-control-sm for-change-order-state" type="radio" value="3"
+                               th:name="${order.id}" th:checked="${order.orderState.id==3}">Đã
+                        gửi
+                    </label>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary button-for-show-order-detail" data-toggle="modal"
+                            data-target="#modal" th:id="${order.id}">
+                        Xem
+                    </button>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a style="color: white" th:href="@{'/admin/order'(page=${orders.number - 1})}"
+           th:if="${orders.hasPrevious()}">Previous</a>
+        <span th:text="${orders.number + 1}"></span>/<span th:text="${orders.totalPages}"></span>
+        <a style="color: white" th:href="@{'/admin/order'(page=${orders.number + 1})}"
+           th:if="${orders.hasNext()}">Next</a>
+    </div>
+</div>
+<!-- The Modal -->
+<div class="modal fade" id="modal">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="background-color: #394f62;color: white;">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết đơn hàng</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!--================BODY START================-->
+                <table id="for-show-order-detail">
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá tiền</th>
+                    </tr>
+                </table>
+                <!--================BODY END================-->
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--========================Order List End==========================-->
+<footer class="tm-footer row tm-mt-small">
+    <div class="col-12 font-weight-light">
+        <p class="text-center text-white mb-0 px-4 small">
+            Copyright &copy; <b>2018</b> All rights reserved.
+
+            Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+        </p>
+    </div>
+</footer>
+<script th:src="@{/admin/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+<script th:src="@{/js/product.js}"></script>
+<script th:src="@{/js/order-admin.js}"></script>
+<script th:src="@{/admin/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+<script>
+    $(function () {
+        $(".expire_date").datepicker({
+            defaultDate: "10/22/2020"
+        })
+    });
+</script>
+</body>
+</html>

@@ -1,9 +1,12 @@
 package project.clothes_shop.service.order;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import project.clothes_shop.model.AppUser;
 import project.clothes_shop.model.Order;
 import project.clothes_shop.service.IGeneralService;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface IOrderService extends IGeneralService<Order> {
@@ -14,4 +17,8 @@ public interface IOrderService extends IGeneralService<Order> {
     void setOrderDetailForOrder(Order order);
 
     void setOrderDetailForListOrder(List<Order> orders);
+
+    Page<Order> findPageable(Pageable pageable);
+
+    List<Order> findByDateRange(Date start, Date end);
 }
