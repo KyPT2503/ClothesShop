@@ -1,6 +1,8 @@
 package project.clothes_shop.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -66,5 +68,10 @@ public class AppUserService implements IAppUserService {
         }
         appUser = appUserRepo.findByEmail(email);
         return appUser;
+    }
+
+    @Override
+    public Page<AppUser> findPageable(Pageable pageable) {
+        return appUserRepo.findAll(pageable);
     }
 }

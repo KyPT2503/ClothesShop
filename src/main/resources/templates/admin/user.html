@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Người dùng</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700"/>
+    <link rel="stylesheet" th:href="@{/admin/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/templatemo-style.css}">
+    <link rel="stylesheet" th:href="@{/admin/jquery-ui-datepicker/jquery-ui.min.css}">
+</head>
+<body>
+<nav th:replace="admin/layout::nav"></nav>
+<!--========================Order List Start==========================-->
+<div class="col-12 tm-block-col">
+    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+        <h2 class="tm-block-title">Danh sách khách hàng đã đăng ký</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Họ và tên</th>
+                <th scope="col">Email (Tên đăng nhập)</th>
+                <th scope="col">Mật khẩu</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Vai trò</th>
+            </tr>
+            </thead>
+            <tbody id="for-show-when-search">
+            <tr th:each="user:${users}">
+                <th scope="row"><b th:text="${'#'+user.id}"></b></th>
+                <td>
+                    <b th:text="${user.name}"></b>
+                </td>
+                <td>
+                    <b th:text="${user.email}"></b>
+                </td>
+                <td>
+                    <b th:text="${user.password}"></b>
+                </td>
+                <td>
+                    <b th:text="${user.phoneNumber}"></b>
+                </td>
+                <td>
+                    <b th:text="${user.address}"></b>
+                </td>
+                <td>
+                    <b th:text="${user.role.name}"></b>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a style="color: white" th:href="@{'/admin/user'(page=${users.number - 1})}"
+           th:if="${users.hasPrevious()}">Previous</a>
+        <span th:text="${users.number + 1}"></span>/<span th:text="${users.totalPages}"></span>
+        <a style="color: white" th:href="@{'/admin/user'(page=${users.number + 1})}"
+           th:if="${users.hasNext()}">Next</a>
+    </div>
+</div>
+<!--========================Order List End==========================-->
+<footer class="tm-footer row tm-mt-small">
+    <div class="col-12 font-weight-light">
+        <p class="text-center text-white mb-0 px-4 small">
+            Copyright &copy; <b>2018</b> All rights reserved.
+
+            Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+        </p>
+    </div>
+</footer>
+<script th:src="@{/admin/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+<script th:src="@{/js/product.js}"></script>
+<script th:src="@{/js/order-admin.js}"></script>
+<script th:src="@{/admin/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+<script>
+    $(function () {
+        $(".expire_date").datepicker({
+            defaultDate: "10/22/2020"
+        })
+    });
+</script>
+</body>
+</html>
