@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
-public class OrderSearchDTO {
+public class DateSearchDTO {
     private String startDay;
     private String endDay;
 

@@ -1,21 +1,18 @@
 package project.clothes_shop.controller;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import project.clothes_shop.dto.OrderSearchDTO;
+import project.clothes_shop.dto.DateSearchDTO;
 import project.clothes_shop.model.Order;
 import project.clothes_shop.model.OrderDetail;
 import project.clothes_shop.model.OrderState;
 import project.clothes_shop.service.order.IOrderService;
 import project.clothes_shop.service.order_detail.IOrderDetailService;
 
-import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -46,8 +43,8 @@ public class OrderAdminController {
     }
 
     @PostMapping("/search")
-    private List<Order> searchByDateRange(@RequestBody OrderSearchDTO orderSearchDTO) {
-        List<Order> orders = orderService.findByDateRange(orderSearchDTO.convertDateSql(orderSearchDTO.getStartDay()), orderSearchDTO.convertDateSql(orderSearchDTO.getEndDay()));
+    private List<Order> searchByDateRange(@RequestBody DateSearchDTO dateSearchDTO) {
+        List<Order> orders = orderService.findByDateRange(dateSearchDTO.convertDateSql(dateSearchDTO.getStartDay()), dateSearchDTO.convertDateSql(dateSearchDTO.getEndDay()));
         return orders;
     }
 }

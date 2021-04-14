@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Thống kê</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700"/>
+    <link rel="stylesheet" th:href="@{/admin/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/templatemo-style.css}">
+    <link rel="stylesheet" th:href="@{/admin/jquery-ui-datepicker/jquery-ui.min.css}">
+</head>
+<body>
+<nav th:replace="admin/layout::nav"></nav>
+<!--========================Order List Start==========================-->
+<div class="col-12 tm-block-col">
+    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+        <form method="post" class="row" id="search-by-date-range">
+            <label>
+                <input
+                        id="start_date"
+                        name="expire_date"
+                        type="text"
+                        value="04/13/2021"
+                        class="form-control validate expire_date"
+                        data-large-mode="true"
+                />
+            </label>
+            <label>
+                <input
+                        id="end_date"
+                        name="expire_date"
+                        type="text"
+                        value="04/13/2021"
+                        class="form-control validate expire_date"
+                        data-large-mode="true"
+                />
+            </label>
+            <button class="btn-small btn-primary" style="height:50px;border-radius: 5px;">Xem thống kê</button>
+        </form>
+        <h2 class="tm-block-title">Thống kê doanh thu</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Ngày</th>
+                <th scope="col">Số đơn hàng đã bán</th>
+                <th scope="col">Số lượng sản phẩm đã bán</th>
+                <th scope="col">Tổng doanh thu</th>
+            </tr>
+            </thead>
+            <tbody id="for-show-when-search">
+            <tr th:each="statistic:${statistics}">
+                <th scope="row">
+                    <b th:text="${statistic.day}" class="each_day"></b>
+                </th>
+                <td>
+                    <b th:text="${statistic.orderAmount}"></b>
+                </td>
+                <td>
+                    <b th:text="${statistic.productAmount}"></b>
+                </td>
+                <td>
+                    <b th:text="${statistic.total+' VNĐ'}"></b>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form action="/admin/statistic/download" method="get" style="display: none;" id="form-download">
+        <input type="date" id="start-date-in-form" name="startDay">
+        <input type="date" id="end-date-in-form" name="endDay">
+        <button type="submit">Send</button>
+    </form>
+    <button class="btn btn-primary" id="button-export-excel-file">Tải thống kê này về máy tính</button>
+</div>
+<!--========================Order List End==========================-->
+<footer class="tm-footer row tm-mt-small">
+    <div class="col-12 font-weight-light">
+        <p class="text-center text-white mb-0 px-4 small">
+            Copyright &copy; <b>2018</b> All rights reserved.
+
+            Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+        </p>
+    </div>
+</footer>
+<script th:src="@{/admin/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+<script th:src="@{/js/statistic.js}"></script>
+<script th:src="@{/admin/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+<script>
+    $(function () {
+        $(".expire_date").datepicker({
+            defaultDate: "10/22/2020"
+        })
+    });
+</script>
+</body>
+</html>

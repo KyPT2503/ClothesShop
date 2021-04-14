@@ -21,4 +21,6 @@ public interface IOrderService extends IGeneralService<Order> {
     Page<Order> findPageable(Pageable pageable);
 
     List<Order> findByDateRange(Date start, Date end);
+
+    List<Order> findAllByDate(Date date);
 }

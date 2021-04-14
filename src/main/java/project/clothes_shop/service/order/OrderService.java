@@ -90,6 +90,14 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<Order> findByDateRange(Date start, Date end) {
-        return orderRepo.findAllByDateBetween(start,end);
+        return orderRepo.findAllByDateBetween(start, end);
+    }
+
+    @Override
+    public List<Order> findAllByDate(Date date) {
+        List<Order> orders = new ArrayList<>();
+        orders = orderRepo.findAllByDate(date);
+        this.setOrderDetailForListOrder(orders);
+        return orders;
     }
 }

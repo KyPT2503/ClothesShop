@@ -81,7 +81,7 @@
                             </div>
                         </div>
                         <div class="checkout-btn">
-                            <button type="submit">Đặt hàng</button>
+                            <button type="submit" th:disabled="${total==0.0}">Đặt hàng</button>
                         </div>
                     </div>
                 </div>

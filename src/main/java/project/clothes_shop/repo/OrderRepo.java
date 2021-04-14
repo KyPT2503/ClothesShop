@@ -13,4 +13,6 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
     List<Order> findAllByAppUser(AppUser appUser);
 
     List<Order> findAllByDateBetween(Date start, Date end);
+
+    List<Order> findAllByDate(Date date);
 }
