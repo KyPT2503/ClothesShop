@@ -53,6 +53,9 @@ create table cart
     constraint fk_app_user foreign key (app_user_id) references app_user (id)
 );
 
+alter table cart
+    modify app_user_id bigint null;
+
 create table cart_detail
 (
     id         bigint auto_increment primary key,
@@ -167,4 +170,10 @@ alter table clothes_detail
     add constraint fk_category foreign key (category_id) references category (id);
 
 alter table clothes_detail
-add constraint fk_brand foreign key (brand_id) references brand(id);
+    add constraint fk_brand foreign key (brand_id) references brand (id);
+
+alter table custom_order
+add column date date not null;
+
+alter table custom_order
+modify column app_user_id bigint null;
