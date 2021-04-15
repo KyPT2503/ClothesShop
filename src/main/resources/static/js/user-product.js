@@ -48,7 +48,7 @@ function insertProduct(id, name, source, price) {
                             </div>
                             <div class="product-image">
                                 <a href="">
-                                    <img src="${source}"
+                                    <img src="/${source}"
                                          alt="Product Image">
                                 </a>
                                 <div class="product-action">

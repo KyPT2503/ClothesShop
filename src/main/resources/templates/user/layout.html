@@ -117,6 +117,62 @@
     <!-- Breadcrumb End -->
 
 </div>
+<!-- Side Bar Start -->
+<div class="col-lg-4 sidebar" th:fragment="side-bar">
+    <div class="sidebar-widget category">
+        <h2 class="title">Thể loại</h2>
+        <nav class="navbar bg-light">
+            <ul class="navbar-nav">
+                <li class="nav-item" th:each="category:${categories}">
+                    <a class="nav-link" th:href="@{'/product/category-search/'+${category.id}}"><i
+                            class="fa fa-tshirt"></i><span th:text="${category.name}"></span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="sidebar-widget widget-slider">
+        <div class="sidebar-slider normal-slider">
+            <div class="product-item" th:each="cloth:${rightClothes}">
+                <div class="product-title">
+                    <a href="#" th:text="${cloth.clothesDetail.name}"></a>
+                    <div class="ratting">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                </div>
+                <div class="product-image">
+                    <a href=""
+                       th:if="${cloth.clothesDetail.sources.size()>0}">
+                        <img th:src="@{'/user/image/'+${cloth.clothesDetail.sources[0]}}"
+                             alt="Product Image">
+                    </a>
+                    <div class="product-action">
+                        <a class="button-add-to-cart" th:id="${cloth.id}" href=""><i
+                                class="fa fa-cart-plus"></i></a>
+                        <a href="#"><i class="fa fa-heart"></i></a>
+                        <a th:href="@{'/product/detail/'+${cloth.id}}"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+                <div class="product-price">
+                    <h3 th:text="${cloth.clothesDetail.price+' đồng'}"></h3>
+                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Mua hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-widget brands">
+        <h2 class="title">Hãng sản xuất</h2>
+        <ul>
+            <li th:each="brand:${brands}"><a th:href="@{'/product/brand-search/'+${brand.id}}" th:text="${brand.name}">Nulla </a><span></span></li>
+        </ul>
+    </div>
+</div>
+<!-- Side Bar End -->
 <div th:fragment="footer">
     <!-- Footer Start -->
     <div class="footer">

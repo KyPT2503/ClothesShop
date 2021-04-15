@@ -2,6 +2,8 @@ package project.clothes_shop.service.clothes;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import project.clothes_shop.model.Brand;
+import project.clothes_shop.model.Category;
 import project.clothes_shop.model.Clothes;
 import project.clothes_shop.model.ClothesDetail;
 import project.clothes_shop.service.IGeneralService;
@@ -22,4 +24,12 @@ public interface IClothesService extends IGeneralService<Clothes> {
     void setSourceForClothes(Clothes clothes);
 
     List<Clothes> findByName(String name);
+
+    List<Clothes> findByCategory(Category category);
+
+    List<Clothes> findByBrand(Brand brand);
+
+    List<Clothes> findTop5ByViewCount(int viewCount);
+
+    List<Clothes> findTop5BySoldAmount(int soldAmount);
 }

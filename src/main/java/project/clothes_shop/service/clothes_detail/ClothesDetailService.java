@@ -3,6 +3,8 @@ package project.clothes_shop.service.clothes_detail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.clothes_shop.dto.ClothesSearchDTO;
+import project.clothes_shop.model.Brand;
+import project.clothes_shop.model.Category;
 import project.clothes_shop.model.ClothesDetail;
 import project.clothes_shop.model.ClothesImage;
 import project.clothes_shop.repo.ClothesDetailRepo;
@@ -100,5 +102,25 @@ public class ClothesDetailService implements IClothesDetailService {
     @Override
     public List<ClothesDetail> findByName(String name) {
         return clothesDetailRepo.findAllByNameContaining(name);
+    }
+
+    @Override
+    public List<ClothesDetail> findByBrand(Brand brand) {
+        return clothesDetailRepo.findAllByBrand(brand);
+    }
+
+    @Override
+    public List<ClothesDetail> findByCategory(Category category) {
+        return clothesDetailRepo.findAllByCategory(category);
+    }
+
+    @Override
+    public List<ClothesDetail> findTop5BySoldAmount(int soldAmount) {
+        return clothesDetailRepo.findTop5ByOrderBySoldAmountDesc();
+    }
+
+    @Override
+    public List<ClothesDetail> findTop5ByViewCount(int viewCount) {
+        return clothesDetailRepo.findTop5ByOrderByViewCountDesc();
     }
 }

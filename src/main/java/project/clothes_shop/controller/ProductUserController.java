@@ -40,6 +40,16 @@ public class ProductUserController {
     @Autowired
     private ICartService cartService;
 
+    @ModelAttribute("muchSold")
+    public List<Clothes> getTop5SoldAmount() {
+        return clothesService.findTop5BySoldAmount(0);
+    }
+
+    @ModelAttribute("muchView")
+    public List<Clothes> getTop5ViewCount() {
+        return clothesService.findTop5ByViewCount(0);
+    }
+
     @ModelAttribute("current_cart")
     public Cart getCurrentCart(HttpSession session) {
         return cartService.getCurrentCart(session);
@@ -78,7 +88,10 @@ public class ProductUserController {
     @GetMapping("")
     public ModelAndView showProducts(@PageableDefault(size = 9) Pageable pageable) {
         Page<Clothes> clothesPage = clothesService.findPageable(pageable);
-        return new ModelAndView("user/products", "clothes", clothesService.findPageable(pageable));
+        ModelAndView modelAndView = new ModelAndView("user/products");
+        modelAndView.addObject("clothes", clothesPage);
+        modelAndView.addObject("rightClothes", clothesService.findTop5BySoldAmount(0));
+        return modelAndView;
     }
 
     @GetMapping("/detail/{id}")
@@ -89,11 +102,31 @@ public class ProductUserController {
         ModelAndView modelAndView = new ModelAndView("user/detail");
         clothesService.setSourceForClothes(clothes);
         modelAndView.addObject("clothes", clothes);
+        modelAndView.addObject("rightClothes", clothesService.findByCategory(clothes.getClothesDetail().getCategory()));
         return modelAndView;
     }
 
     @PostMapping("/name-search")
     public ModelAndView nameSearch(@RequestParam("name") String name) {
-        return new ModelAndView("user/product-search", "clothes", clothesService.findByName(name));
+        ModelAndView modelAndView = new ModelAndView("user/product-search");
+        modelAndView.addObject("clothes", clothesService.findByName(name));
+        modelAndView.addObject("rightClothes", clothesService.findTop5BySoldAmount(0));
+        return modelAndView;
+    }
+
+    @GetMapping("/category-search/{categoryId}")
+    public ModelAndView categorySearch(@PathVariable("categoryId") Category category) {
+        ModelAndView modelAndView = new ModelAndView("user/product-search");
+        modelAndView.addObject("clothes", clothesService.findByCategory(category));
+        modelAndView.addObject("rightClothes", clothesService.findTop5BySoldAmount(0));
+        return modelAndView;
+    }
+
+    @GetMapping("/brand-search/{brandId}")
+    public ModelAndView brandSearch(@PathVariable("brandId") Brand brand) {
+        ModelAndView modelAndView = new ModelAndView("user/product-search");
+        modelAndView.addObject("clothes", clothesService.findByBrand(brand));
+        modelAndView.addObject("rightClothes", clothesService.findTop5BySoldAmount(0));
+        return modelAndView;
     }
 }

@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
-import project.clothes_shop.model.Clothes;
-import project.clothes_shop.model.ClothesDetail;
-import project.clothes_shop.model.ClothesImage;
+import project.clothes_shop.model.*;
 import project.clothes_shop.repo.ClothesRepo;
 import project.clothes_shop.service.clothes_detail.IClothesDetailService;
 import project.clothes_shop.service.clothes_image.IClothesImageService;
@@ -156,6 +154,50 @@ public class ClothesService implements IClothesService {
     @Override
     public List<Clothes> findByName(String name) {
         List<ClothesDetail> clothesDetails = clothesDetailService.findByName(name);
+        List<Clothes> clothes = new ArrayList<>();
+        for (ClothesDetail clothesDetail : clothesDetails) {
+            clothes.add(clothesRepo.findFirstByClothesDetail(clothesDetail));
+        }
+        this.setAllSourceListClothes(clothes);
+        return clothes;
+    }
+
+    @Override
+    public List<Clothes> findByCategory(Category category) {
+        List<ClothesDetail> clothesDetails = clothesDetailService.findByCategory(category);
+        List<Clothes> clothes = new ArrayList<>();
+        for (ClothesDetail clothesDetail : clothesDetails) {
+            clothes.add(clothesRepo.findFirstByClothesDetail(clothesDetail));
+        }
+        this.setAllSourceListClothes(clothes);
+        return clothes;
+    }
+
+    @Override
+    public List<Clothes> findByBrand(Brand brand) {
+        List<ClothesDetail> clothesDetails = clothesDetailService.findByBrand(brand);
+        List<Clothes> clothes = new ArrayList<>();
+        for (ClothesDetail clothesDetail : clothesDetails) {
+            clothes.add(clothesRepo.findFirstByClothesDetail(clothesDetail));
+        }
+        this.setAllSourceListClothes(clothes);
+        return clothes;
+    }
+
+    @Override
+    public List<Clothes> findTop5ByViewCount(int viewCount) {
+        List<ClothesDetail> clothesDetails = clothesDetailService.findTop5ByViewCount(viewCount);
+        List<Clothes> clothes = new ArrayList<>();
+        for (ClothesDetail clothesDetail : clothesDetails) {
+            clothes.add(clothesRepo.findFirstByClothesDetail(clothesDetail));
+        }
+        this.setAllSourceListClothes(clothes);
+        return clothes;
+    }
+
+    @Override
+    public List<Clothes> findTop5BySoldAmount(int soldAmount) {
+        List<ClothesDetail> clothesDetails = clothesDetailService.findTop5BySoldAmount(soldAmount);
         List<Clothes> clothes = new ArrayList<>();
         for (ClothesDetail clothesDetail : clothesDetails) {
             clothes.add(clothesRepo.findFirstByClothesDetail(clothesDetail));

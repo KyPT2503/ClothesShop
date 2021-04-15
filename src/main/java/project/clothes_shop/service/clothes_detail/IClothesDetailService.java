@@ -1,6 +1,8 @@
 package project.clothes_shop.service.clothes_detail;
 
 import project.clothes_shop.dto.ClothesSearchDTO;
+import project.clothes_shop.model.Brand;
+import project.clothes_shop.model.Category;
 import project.clothes_shop.model.ClothesDetail;
 import project.clothes_shop.service.IGeneralService;
 
@@ -16,4 +18,12 @@ public interface IClothesDetailService extends IGeneralService<ClothesDetail> {
     void updateSoldAmountAndQuantity(ClothesDetail clothesDetail, int soldAmount, int quantity);
 
     List<ClothesDetail> findByName(String name);
+
+    List<ClothesDetail> findByBrand(Brand brand);
+
+    List<ClothesDetail> findByCategory(Category category);
+
+    List<ClothesDetail> findTop5BySoldAmount(int soldAmount);
+
+    List<ClothesDetail> findTop5ByViewCount(int viewCount);
 }
