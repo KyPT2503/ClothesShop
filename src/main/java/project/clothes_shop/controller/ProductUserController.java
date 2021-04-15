@@ -91,4 +91,9 @@ public class ProductUserController {
         modelAndView.addObject("clothes", clothes);
         return modelAndView;
     }
+
+    @PostMapping("/name-search")
+    public ModelAndView nameSearch(@RequestParam("name") String name) {
+        return new ModelAndView("user/product-search", "clothes", clothesService.findByName(name));
+    }
 }

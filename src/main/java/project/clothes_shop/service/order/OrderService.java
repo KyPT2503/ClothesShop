@@ -4,9 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.clothes_shop.model.AppUser;
 import project.clothes_shop.model.Order;
+import project.clothes_shop.model.OrderContact;
+import project.clothes_shop.model.OrderDetail;
 import project.clothes_shop.repo.OrderRepo;
+import project.clothes_shop.service.order_contact.IOrderContactService;
 import project.clothes_shop.service.order_detail.IOrderDetailService;
 
 import java.sql.Date;
@@ -20,6 +24,8 @@ public class OrderService implements IOrderService {
     private OrderRepo orderRepo;
     @Autowired
     private IOrderDetailService orderDetailService;
+    @Autowired
+    private IOrderContactService orderContactService;
 
     @Override
     public List<Order> findAll() {
@@ -32,11 +38,26 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    @Transactional
     public boolean remove(Order order) {
-        if (orderRepo.existsById(order.getId())) {
+        if (order.getOrderState().getId() != 1L) {
             return false;
         }
+        if (!orderRepo.existsById(order.getId())) {
+            return false;
+        }
+        //remove order detail (update quantity and soldAmount)
+        List<OrderDetail> orderDetails = orderDetailService.getAllByOrder(order);
+        for (OrderDetail orderDetail : orderDetails) {
+            orderDetailService.remove(orderDetail);
+        }
+        OrderContact orderContact = order.getOrderContact();
+
+        // remove order
         orderRepo.delete(order);
+
+        //remove order contact
+        orderContactService.remove(orderContact);
         return true;
     }
 

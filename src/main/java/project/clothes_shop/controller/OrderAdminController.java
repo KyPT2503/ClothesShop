@@ -12,6 +12,7 @@ import project.clothes_shop.model.OrderDetail;
 import project.clothes_shop.model.OrderState;
 import project.clothes_shop.service.order.IOrderService;
 import project.clothes_shop.service.order_detail.IOrderDetailService;
+import project.clothes_shop.service.user.IAppUserService;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class OrderAdminController {
     private IOrderService orderService;
     @Autowired
     private IOrderDetailService orderDetailService;
+    @Autowired
+    private IAppUserService appUserService;
 
     @GetMapping("")
     public ModelAndView showOrderPage(@PageableDefault(size = 3) Pageable pageable) {
@@ -33,6 +36,9 @@ public class OrderAdminController {
 
     @GetMapping("/detail/{id}")
     private List<OrderDetail> getOrderDetailByOrder(@PathVariable("id") Order order) {
+        // if is admin, continue
+        // if user has this order, continue
+        // if session save this order
         return orderDetailService.getAllByOrder(order);
     }
 

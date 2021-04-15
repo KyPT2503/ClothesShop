@@ -1,10 +1,7 @@
 package project.clothes_shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import project.clothes_shop.model.AppUser;
 import project.clothes_shop.model.Cart;
@@ -49,5 +46,15 @@ public class OrderController {
             modelAndView.addObject("orders", orderService.getAllByAppUser(appUserService.getCurrentUser()));
         }
         return modelAndView;
+    }
+
+    @DeleteMapping("/remove/{orderId}")
+    public String removeOrder(@PathVariable("orderId") Order order) {
+        boolean isRemoved = orderService.remove(order);
+        if (isRemoved) {
+            return "Hủy đơn hàng thành công.";
+        } else {
+            return "Đơn hàng của bạn không thể hủy do đang trong quá trình vận chuyển hoặc đã giao hàng.";
+        }
     }
 }

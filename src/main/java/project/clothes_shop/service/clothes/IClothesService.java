@@ -20,4 +20,6 @@ public interface IClothesService extends IGeneralService<Clothes> {
     void setAllSourceListClothes(List<Clothes> clothes);
 
     void setSourceForClothes(Clothes clothes);
+
+    List<Clothes> findByName(String name);
 }

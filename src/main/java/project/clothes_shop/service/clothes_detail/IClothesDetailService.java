@@ -14,4 +14,6 @@ public interface IClothesDetailService extends IGeneralService<ClothesDetail> {
     void upViewCount(ClothesDetail clothesDetail);
 
     void updateSoldAmountAndQuantity(ClothesDetail clothesDetail, int soldAmount, int quantity);
+
+    List<ClothesDetail> findByName(String name);
 }

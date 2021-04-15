@@ -78,12 +78,12 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <form class="col-md-6" th:action="@{/product/name-search}" method="post">
                     <div class="search">
-                        <input type="text" placeholder="Tìm sản phẩm">
-                        <button><i class="fa fa-search"></i></button>
+                        <input type="text" placeholder="Tìm sản phẩm" name="name">
+                        <button type="submit"><i class="fa fa-search"></i></button>
                     </div>
-                </div>
+                </form>
                 <div class="col-md-3">
                     <div class="user">
                         <a href="#" class="btn wishlist">

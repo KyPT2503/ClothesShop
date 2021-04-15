@@ -24,6 +24,7 @@ public class OrderContactService implements IOrderContactService {
 
     @Override
     public boolean remove(OrderContact orderContact) {
+        orderContactRepo.delete(orderContact);
         return false;
     }
 

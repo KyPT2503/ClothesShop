@@ -96,4 +96,9 @@ public class ClothesDetailService implements IClothesDetailService {
         clothesDetail.setSoldAmount(soldAmount);
         clothesDetailRepo.save(clothesDetail);
     }
+
+    @Override
+    public List<ClothesDetail> findByName(String name) {
+        return clothesDetailRepo.findAllByNameContaining(name);
+    }
 }

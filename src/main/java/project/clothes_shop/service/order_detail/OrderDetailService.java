@@ -2,12 +2,11 @@ package project.clothes_shop.service.order_detail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project.clothes_shop.model.Cart;
-import project.clothes_shop.model.CartDetail;
-import project.clothes_shop.model.Order;
-import project.clothes_shop.model.OrderDetail;
+import org.springframework.transaction.annotation.Transactional;
+import project.clothes_shop.model.*;
 import project.clothes_shop.repo.OrderDetailRepo;
 import project.clothes_shop.repo.OrderRepo;
+import project.clothes_shop.service.clothes_detail.IClothesDetailService;
 
 import java.util.List;
 
@@ -15,6 +14,8 @@ import java.util.List;
 public class OrderDetailService implements IOrderDetailService {
     @Autowired
     private OrderDetailRepo orderDetailRepo;
+    @Autowired
+    private IClothesDetailService clothesDetailService;
 
     @Override
     public List<OrderDetail> findAll() {
@@ -27,7 +28,13 @@ public class OrderDetailService implements IOrderDetailService {
     }
 
     @Override
+    @Transactional
     public boolean remove(OrderDetail orderDetail) {
+        // update soldAmount and quantity
+        ClothesDetail clothesDetail = orderDetail.getClothes().getClothesDetail();
+        clothesDetailService.updateSoldAmountAndQuantity(clothesDetail, clothesDetail.getSoldAmount() - orderDetail.getAmount(), clothesDetail.getQuantity() + orderDetail.getAmount());
+        // remove order detail
+        orderDetailRepo.delete(orderDetail);
         return false;
     }
 

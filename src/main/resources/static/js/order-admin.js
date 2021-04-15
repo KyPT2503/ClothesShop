@@ -37,6 +37,26 @@ $(document).ready(function () {
             }
         })
     })
+    // remove order for user
+    $(document).on("click", ".button-for-remove-order", function (e) {
+        let button = $(e.target);
+        $.ajax({
+            type: "DELETE",
+            url: "/order/remove/" + button.attr("id"),
+            success: function (message) {
+                console.log(message);
+                let alert = `<div class="alert alert-primary alert-dismissible fade show">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Thông báo!</strong> ${message}
+                        </div>`;
+                let div = $('#for-show-message');
+                div.append(alert);
+                if (message === "Hủy đơn hàng thành công.") {
+                    button.parent().parent().remove();
+                }
+            }
+        })
+    })
     $(document).on("submit", "#search-by-date-range", function (e) {
         console.log('Search run');
         let startDay = $('#start_date').val();
@@ -77,17 +97,17 @@ $(document).ready(function () {
                 <td>
                     <label>
                         <input class="form-control-sm for-change-order-state" type="radio" value="1"
-                               name="${order['id']}" ${(order['orderState']['id']==1)?'checked':''}>Xác
+                               name="${order['id']}" ${(order['orderState']['id'] == 1) ? 'checked' : ''}>Xác
                         nhận |
                     </label>
                     <label>
                         <input class="form-control-sm for-change-order-state" type="radio" value="2"
-                               name="${order['id']}" ${(order['orderState']['id']==2)?'checked':''}>Đang
+                               name="${order['id']}" ${(order['orderState']['id'] == 2) ? 'checked' : ''}>Đang
                         gửi |
                     </label>
                     <label>
                         <input class="form-control-sm for-change-order-state" type="radio" value="3"
-                               name="${order['id']}" ${(order['orderState']['id']==3)?'checked':''}>Đã
+                               name="${order['id']}" ${(order['orderState']['id'] == 3) ? 'checked' : ''}>Đã
                         gửi
                     </label>
                 </td>

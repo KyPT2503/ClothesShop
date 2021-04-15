@@ -153,6 +153,17 @@ public class ClothesService implements IClothesService {
         this.setSourcesForClothesDetail(clothes.getClothesDetail());
     }
 
+    @Override
+    public List<Clothes> findByName(String name) {
+        List<ClothesDetail> clothesDetails = clothesDetailService.findByName(name);
+        List<Clothes> clothes = new ArrayList<>();
+        for (ClothesDetail clothesDetail : clothesDetails) {
+            clothes.add(clothesRepo.findFirstByClothesDetail(clothesDetail));
+        }
+        this.setAllSourceListClothes(clothes);
+        return clothes;
+    }
+
     private void setAllSourcePageClothes(Page<Clothes> clothes) {
         this.setAllSourceListClothes(clothes.toList());
     }

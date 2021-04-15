@@ -14,6 +14,19 @@
     <link th:href="@{/user/lib/slick/slick.css}" rel="stylesheet">
     <link th:href="@{/user/lib/slick/slick-theme.css}" rel="stylesheet">
     <link th:href="@{user/css/style.css}" rel="stylesheet">
+    <style>
+        #for-show-order-detail td, #for-show-order-detail tr {
+            width: 400px;
+            border-bottom: solid black 1px;
+            line-height: 50px;
+        }
+
+        #for-show-message {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="user/layout::header"></div>
@@ -34,6 +47,7 @@
                                 <th>Nơi nhận</th>
                                 <th>Trạng thái đơn hàng</th>
                                 <th>Xem chi tiết</th>
+                                <th>Hủy đơn hàng</th>
                             </tr>
                             </thead>
                             <tbody class="align-middle">
@@ -55,42 +69,59 @@
                                     <p th:text="${order.orderState.name}"></p>
                                 </td>
                                 <td>
-                                    <button class="btn-cart" type="button" data-toggle="modal" th:attr="data-target='#'+${order.id}">Xem chi
+                                    <button th:id="${order.id}" class="btn-cart button-for-show-order-detail"
+                                            type="button"
+                                            data-toggle="modal" data-target="#modal">Xem
+                                        chi
                                         tiết
                                     </button>
-                                    <!--======MODAL START-->
-                                    <div class="modal" th:id="${order.id}">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-
-                                                <!-- Modal Header -->
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" th:text="${order.id}"></h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;
-                                                    </button>
-                                                </div>
-
-                                                <!-- Modal body -->
-                                                <div class="modal-body">
-                                                    Modal body..
-                                                </div>
-
-                                                <!-- Modal footer -->
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                                        Close
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--======MODAL END-->
+                                </td>
+                                <td>
+                                    <button th:id="${order.id}" class="btn-cart button-for-remove-order"
+                                            type="button">Hủy đơn
+                                    </button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
+                    <!--===================================================-->
+                    <!-- The Modal -->
+                    <div class="modal fade" id="modal">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Chi tiết đơn hàng của bạn</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;
+                                    </button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <!--================BODY START================-->
+                                    <table id="for-show-order-detail">
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá tiền</th>
+                                        </tr>
+                                    </table>
+                                    <!--================BODY END================-->
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================================================-->
                 </div>
             </div>
         </div>
@@ -98,6 +129,7 @@
 </div>
 <!-- Wishlist End -->
 <div th:replace="user/layout::footer"></div>
+<div id="for-show-message"></div>
 
 <!-- Back to Top -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
@@ -109,5 +141,6 @@
 <script th:src="@{user/lib/easing/easing.min.js}"></script>
 <script th:src="@{user/lib/slick/slick.min.js}"></script>
 <script th:src="@{user/js/main.js}"></script>
+<script th:src="@{/js/order-admin.js}"></script>
 </body>
 </html>
