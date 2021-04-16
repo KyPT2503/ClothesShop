@@ -43,6 +43,7 @@ public class AccountController {
         if (bindingResult.hasFieldErrors()) {
             return new ModelAndView("user/account", "user_to_update", appUser);
         }
+        appUser.setEmail(appUserService.getCurrentUser().getEmail()); // for make sure that email cant change
         appUserService.add(appUser);
         return new ModelAndView("redirect:/account");
     }
