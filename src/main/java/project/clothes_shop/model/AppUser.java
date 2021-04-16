@@ -16,7 +16,7 @@ public class AppUser {
     @Size(min = 8, message = "Mật khẩu phải nhiều hơn 8 ký tự.")
     private String password;
     private String name;
-    @Pattern(regexp = "[0-9]*", message = "Số điện thoại không hợp lệ.")
+    @Pattern(regexp = "[0-9]{9,}", message = "Số điện thoại không hợp lệ.")
     @Column(name = "phone_number")
     private String phoneNumber;
     private String address;

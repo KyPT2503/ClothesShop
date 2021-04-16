@@ -28,6 +28,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/").permitAll()
                 .and()
+                .authorizeRequests().antMatchers("/account").hasAnyRole("USER", "ADMIN")
+                .and()
                 .authorizeRequests().antMatchers("/product/detail/*").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/admin/order/detail/*").permitAll()

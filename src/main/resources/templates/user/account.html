@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>E Store - eCommerce HTML Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eCommerce HTML Template Free Download" name="keywords">
+    <meta content="eCommerce HTML Template Free Download" name="description">
+    <link th:href="@{/user/img/favicon.ico}" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
+          rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/user/lib/slick/slick.css}" rel="stylesheet">
+    <link th:href="@{/user/lib/slick/slick-theme.css}" rel="stylesheet">
+    <link th:href="@{/user/css/style.css}" rel="stylesheet">
+    <style>
+        #for-show-order-detail td, #for-show-order-detail tr {
+            width: 400px;
+            border-bottom: solid black 1px;
+            line-height: 50px;
+        }
+
+        #for-show-message {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="user/layout::header"></div>
+<!-- Wishlist Start -->
+<dov class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <h4>Thông tin cá nhân</h4>
+        <form th:object="${user_to_update}" class="row" action="/account/change" method="post">
+            <input type="hidden" name="id" th:value="*{id}">
+            <input type="hidden" name="role" th:value="*{role.id}">
+            <div class="col-md-6">Email:
+                <input class="form-control" type="text" name="email" th:value="*{email}" readonly>
+                <p style="color: darkred" th:errors="*{email}" th:if="${#fields.hasErrors()}"></p>
+            </div>
+            <div class="col-md-6">Mật khẩu:
+                <input class="form-control" type="text" name="password" th:value="*{password}">
+                <p style="color: darkred" th:errors="*{password}" th:if="${#fields.hasErrors()}"></p>
+            </div>
+            <div class="col-md-6">Họ và tên
+                <input class="form-control" type="text" name="name" th:value="*{name}" required>
+            </div>
+            <div class="col-md-6">Số điện thoại
+                <input class="form-control" type="text" name="phoneNumber" th:value="*{phoneNumber}">
+                <p style="color: darkred" th:errors="*{phoneNumber}" th:if="${#fields.hasErrors()}"></p>
+            </div>
+            <div class="col-md-12">Địa chỉ
+                <input class="form-control" type="text" placeholder="Address" name="address" th:value="*{address}">
+            </div>
+            <div class="col-md-12">
+                <button class="btn" type="submit">Lưu thay đổi</button>
+                <br><br>
+            </div>
+        </form>
+        <!--<h4>Password change</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <input class="form-control" type="password" placeholder="Current Password">
+            </div>
+            <div class="col-md-6">
+                <input class="form-control" type="text" placeholder="New Password">
+            </div>
+            <div class="col-md-6">
+                <input class="form-control" type="text" placeholder="Confirm Password">
+            </div>
+            <div class="col-md-12">
+                <button class="btn">Save Changes</button>
+            </div>
+        </div>-->
+    </div>
+    <div class="col-lg-3"></div>
+</dov>
+<!-- Wishlist End -->
+<div th:replace="user/layout::footer"></div>
+<div id="for-show-message"></div>
+
+<!-- Back to Top -->
+<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script th:src="@{/user/lib/easing/easing.min.js}"></script>
+<script th:src="@{/user/lib/slick/slick.min.js}"></script>
+<script th:src="@{/user/js/main.js}"></script>
+<script th:src="@{/js/order-admin.js}"></script>
+</body>
+</html>
