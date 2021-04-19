@@ -9,11 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 import project.clothes_shop.model.AppUser;
 import project.clothes_shop.model.Cart;
 import project.clothes_shop.service.cart.ICartService;
+import project.clothes_shop.service.login_google.IGoogleLoginService;
 import project.clothes_shop.service.mail.MailAndCodeService;
 import project.clothes_shop.service.role.AppRoleService;
 import project.clothes_shop.service.user.IAppUserService;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
@@ -26,6 +28,9 @@ public class LoginController {
     private MailAndCodeService mailAndCodeService;
     @Autowired
     private AppRoleService appRoleService;
+    @Autowired
+    private IGoogleLoginService googleLoginService;
+
     @ModelAttribute("current_cart")
     public Cart getCurrentCart(HttpSession session) {
         return cartService.getCurrentCart(session);
@@ -62,5 +67,13 @@ public class LoginController {
         Cart cart = new Cart();
         cart.setAppUser(appUserService.add(appUser));
         return new ModelAndView("redirect:/logout");
+    }
+
+    @RequestMapping("login-google")
+    public ModelAndView loginWithGoogleAccount(@RequestParam("code") String code) throws IOException {
+        String token = googleLoginService.getToken(code);
+        String data = googleLoginService.getData(token);
+        googleLoginService.loginWithData(data);
+        return new ModelAndView("redirect:/");
     }
 }
