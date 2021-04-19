@@ -3,7 +3,9 @@ package project.clothes_shop.service.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -60,7 +62,10 @@ public class AppUserService implements IAppUserService {
     public AppUser getCurrentUser() {
         AppUser appUser;
         String email;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        if (authentication == null) return null;
+        Object principal = authentication.getPrincipal();
         if (principal instanceof UserDetails) {
             email = ((UserDetails) principal).getUsername();
         } else {
@@ -68,6 +73,11 @@ public class AppUserService implements IAppUserService {
         }
         appUser = appUserRepo.findByEmail(email);
         return appUser;
+    }
+
+    @Override
+    public AppUser getByEmail(String email) {
+        return appUserRepo.findByEmail(email);
     }
 
     @Override

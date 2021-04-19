@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>E Store - eCommerce HTML Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eCommerce HTML Template Free Download" name="keywords">
+    <meta content="eCommerce HTML Template Free Download" name="description">
+
+    <!-- Favicon -->
+    <link th:href="@{/user/img/favicon.ico}" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
+          rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/user/lib/slick/slick.css}" rel="stylesheet">
+    <link th:href="@{/user/lib/slick/slick-theme.css}" rel="stylesheet">
+    <link th:href="@{user/css/style.css}" rel="stylesheet">
+    <style>
+        #for-show-chat {
+            height: 500px;
+            border: 1px solid lightgray;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            overflow: auto;
+            overflow-y: scroll;
+        }
+
+        #for-show-chat p {
+            border-bottom: 1px solid coral;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="user/layout::header"></div>
+<!-- Login Start -->
+<div class="login">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <div class="login-form">
+                    <div class="row">
+                        <div class="col-md-12" id="for-show-chat">
+                            <p>Admin: Hi</p>
+                        </div>
+                        <form id="form-send-message" class="row">
+                            <div class=col-md-10>
+                                <input type="text" class="form-control" placeholder="Nhập tin nhắn ..." autofocus id="message">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn" type="button" id="button-send-message">Gửi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</div>
+<!-- Login End -->
+
+<div th:replace="user/layout::footer"></div>
+
+<!-- Back to Top -->
+<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{user/lib/easing/easing.min.js}"></script>
+<script th:src="@{user/lib/slick/slick.min.js}"></script>
+<script th:src="@{user/js/main.js}"></script>
+<script th:src="@{/js/stomp.js}"></script>
+<script th:src="@{/js/sockjs.js}"></script>
+<script th:src="@{/js/chat-user.js}"></script>
+</body>
+</html>
