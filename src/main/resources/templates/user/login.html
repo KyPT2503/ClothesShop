@@ -20,6 +20,12 @@
     <link th:href="@{/user/lib/slick/slick.css}" rel="stylesheet">
     <link th:href="@{/user/lib/slick/slick-theme.css}" rel="stylesheet">
     <link th:href="@{user/css/style.css}" rel="stylesheet">
+    <style>
+        #login-google-button {
+            border-radius: 30px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,11 +40,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label>E-mail / Tên đăng nhập</label>
-                            <input class="form-control" type="text" placeholder="E-mail / Tên đăng nhập" name="email" value="admin">
+                            <input class="form-control" type="text" placeholder="E-mail / Tên đăng nhập" name="email"
+                                   value="admin">
                         </div>
                         <div class="col-md-12">
                             <label>Mật khẩu</label>
-                            <input class="form-control" type="password" placeholder="Mật khẩu" name="password" value="admin">
+                            <input class="form-control" type="password" placeholder="Mật khẩu" name="password"
+                                   value="admin">
                         </div>
                         <div class="col-md-12">
                             <p th:if="${param.error!=null}" style="color: darkred">Sai tên đăng nhập hoặc mật khẩu!</p>
@@ -49,8 +57,15 @@
                                 <label class="custom-control-label" for="newaccount">Giữ trạng thái đăng nhập</label>
                             </div>
                         </div>
+                        <div class="col-md-12 ">
+                            <button class="btn btn-outline">Đăng nhập</button>
+                        </div>
+                        <hr>
                         <div class="col-md-12">
-                            <button class="btn">Đăng nhập</button>
+                            <a id="login-google-button"
+                               class="btn btn-lg btn-google btn-block btn-outline" href="https://accounts.google.com/o/oauth2/auth/bigquery?scope=profile email phone&redirect_uri=http://localhost:8080/login-google&response_type=code
+    &client_id=792929164003-d7o9sl6p4aiijgi0jbkf3nte7ne73n3i.apps.googleusercontent.com&approval_prompt=force"><img
+                                    src="https://img.icons8.com/color/16/000000/google-logo.png"> Đăng nhập bằng Google</a>
                         </div>
                     </div>
                 </form>
