@@ -11,6 +11,12 @@
     <link rel="stylesheet" th:href="@{/admin/css/fontawesome.min.css}">
     <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/admin/css/templatemo-style.css}">
+    <style>
+        #for-show-chat p {
+            border-bottom: 1px solid #4e657a;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <nav th:replace="admin/layout::nav"></nav>
@@ -28,106 +34,31 @@
                 <h2 class="tm-block-title">Khách hàng</h2>
                 <div class="tm-notification-items">
                     <div class="media tm-notification-item" th:each="room:${rooms}">
-                        <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image"
-                                                         class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Jessica</b> and <b>6 others</b> sent you new <a href="#"
-                                                                                               class="tm-notification-link">product
-                                updates</a>. Check new orders.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
+                        <table>
+                            <tr>
+                                <th>
+                                    <button class="btn btn-primary button-show-message" th:id="${room.id}">Xem</button>
+                                </th>
+                                <td><strong th:text="${room.appUser==null?'Ẩn danh':room.appUser.name}"></strong>
+                                    <span th:text="${' | Room chat ID: '+room.id}"></span></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
-                <h2 class="tm-block-title">Tin nhắn</h2>
-                <div class="tm-notification-items">
-                    <div class="media tm-notification-item">
-                        <p>Tin nhan moi</p>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image"
-                                                         class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Oliver Too</b> and <b>6 others</b> sent you existing <a href="#"
-                                                                                                       class="tm-notification-link">product
-                                updates</a>. Read more reports.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image"
-                                                         class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Victoria</b> and <b>6 others</b> sent you <a href="#"
-                                                                                            class="tm-notification-link">order
-                                updates</a>. Read order information.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image"
-                                                         class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Laura Cute</b> and <b>6 others</b> sent you <a href="#"
-                                                                                              class="tm-notification-link">product
-                                records</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image"
-                                                         class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Samantha</b> and <b>6 others</b> sent you <a href="#"
-                                                                                            class="tm-notification-link">order
-                                stuffs</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image"
-                                                         class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Sophie</b> and <b>6 others</b> sent you <a href="#"
-                                                                                          class="tm-notification-link">product
-                                updates</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image"
-                                                         class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Lily A</b> and <b>6 others</b> sent you <a href="#"
-                                                                                          class="tm-notification-link">product
-                                updates</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image"
-                                                         class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Amara</b> and <b>6 others</b> sent you <a href="#"
-                                                                                         class="tm-notification-link">product
-                                updates</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image"
-                                                         class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Cinthela</b> and <b>6 others</b> sent you <a href="#"
-                                                                                            class="tm-notification-link">product
-                                updates</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
+                <div class="tm-notification-items" id="for-show-chat">
                 </div>
+                <form class="row" id="form-send-message">
+                    <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                        <input type="text" class="form-control" id="message" placeholder="Nhập tin nhắn ...">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <button type="submit" class="btn btn-primary">Gửi tin</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -149,30 +80,8 @@
 <script th:src="@{/user/lib/easing/easing.min.js}"></script>
 <script th:src="@{/user/lib/slick/slick.min.js}"></script>
 <script th:src="@{/user/js/main.js}"></script>
-<script>
-    Chart.defaults.global.defaultFontColor = 'white';
-    let ctxLine,
-        ctxBar,
-        ctxPie,
-        optionsLine,
-        optionsBar,
-        optionsPie,
-        configLine,
-        configBar,
-        configPie,
-        lineChart;
-    barChart, pieChart;
-    // DOM is ready
-    $(function () {
-        drawLineChart(); // Line Chart
-        drawBarChart(); // Bar Chart
-        drawPieChart(); // Pie Chart
-
-        $(window).resize(function () {
-            updateLineChart();
-            updateBarChart();
-        });
-    })
-</script>
+<script th:src="@{/js/chat-admin.js}"></script>
+<script th:src="@{/js/sockjs.js}"></script>
+<script th:src="@{/js/stomp.js}"></script>
 </body>
 </html>

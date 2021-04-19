@@ -24,6 +24,7 @@ function getRoomId() {
     })
     return roomId;
 }
+
 function getAllMessage() {
     $.ajax({
         url: "/chat/get-all-message/" + roomId,
@@ -58,7 +59,8 @@ function onError() {
 }
 
 function sendMessage() {
-    let content = $('#message').val();
+    let content = $('#message').val().trim();
+    if (content === '') return;
     let message = {
         "content": content
     }
