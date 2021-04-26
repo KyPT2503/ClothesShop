@@ -177,3 +177,25 @@ add column date date not null;
 
 alter table custom_order
 modify column app_user_id bigint null;
+
+create table room
+(
+    id          bigint auto_increment primary key,
+    app_user_id bigint null,
+    constraint fk_app_user_id_fr_room foreign key (app_user_id) references app_user (id)
+);
+
+create table message
+(
+    id          bigint auto_increment primary key,
+    room_id     bigint not null,
+    constraint fk_room foreign key (room_id) references room (id),
+    app_user_id bigint not null,
+    constraint fk_app_user_id_fr_message foreign key (app_user_id) references app_user (id),
+    content     text   not null
+);
+alter table message
+    modify column app_user_id bigint null;
+
+alter table room
+    modify column app_user_id bigint null;
