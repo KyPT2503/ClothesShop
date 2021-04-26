@@ -9,5 +9,7 @@ import project.clothes_shop.service.IGeneralService;
 public interface IAppUserService extends IGeneralService<AppUser>, UserDetailsService {
     AppUser getCurrentUser();
 
+    AppUser getByEmail(String email);
+
     Page<AppUser> findPageable(Pageable pageable);
 }
