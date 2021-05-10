@@ -21,6 +21,16 @@
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-products">
                 <div class="tm-product-table-container">
+                    <div>
+                        <form action="" id="form-admin-search-product">
+                            <div class="form-group">
+                                <label>Nhập tên sản phẩm
+                                    <input type="text" class="form-control" id="name-for-search">
+                                </label>
+                                <button class="btn btn-success">Tìm kiếm</button>
+                            </div>
+                        </form>
+                    </div>
                     <table class="table table-hover tm-table-small tm-product-table">
                         <thead>
                         <tr>
@@ -38,7 +48,7 @@
                             <th scope="col">&nbsp;</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="for-show-name-search">
                         <tr th:each="cloth:${clothes}">
                             <th scope="row"><input type="checkbox"/></th>
                             <td class="tm-product-name" th:text="${cloth.clothesDetail.name}"></td>
@@ -110,6 +120,43 @@
                     node.parent().parent().remove();
                 }
             })
+        })
+        $(document).on("submit", "#form-admin-search-product", function (e) {
+            $.ajax({
+                type: "GET",
+                url: "/admin/product/name-search/" + $('#name-for-search').val(),
+                success: function (data) {
+                    console.log(data);
+                    let rows = '';
+                    jQuery.each(data, function (index, clothes) {
+                        rows += `<tr>
+                            <th scope="row"><input type="checkbox"/></th>
+                            <td class="tm-product-name">${clothes["clothesDetail"]["name"]}</td>
+                            <td class="tm-product-name">${clothes["clothesDetail"]["code"]}</td>
+                            <td class="tm-product-name">${clothes["clothesDetail"]["price"]}</td>
+                            <td class="tm-product-name">${clothes["clothesDetail"]["category"]["name"]}</td>
+                            <td class="tm-product-name">${clothes["clothesDetail"]["brand"]["name"]}</td>
+                            <td class="tm-product-name">${clothes["clothesDetail"]["description"]}</td>
+                            <td class="tm-product-name">${clothes["clothesDetail"]["quantity"]}</td>
+                            <td class="tm-product-name">${clothes["clothesDetail"]["soldAmount"]}</td>
+                            <td class="tm-product-name">${clothes["clothesDetail"]["viewCount"]}</td>
+                            <td>
+                                <a href="/admin/product/update/${clothes['id']}" class="tm-product-delete-link"
+                                   style="color: white;">
+                                    <i class="fas fa-pen-alt tm-product-delete-icon"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" class="tm-product-delete-link remove-clothes" id="${clothes['id']}">
+                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                </a>
+                            </td>
+                        </tr>`
+                    })
+                    $('#for-show-name-search').html(rows);
+                }
+            })
+            e.preventDefault();
         })
     })
 </script>

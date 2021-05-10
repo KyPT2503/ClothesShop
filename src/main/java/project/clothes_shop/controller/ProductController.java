@@ -74,4 +74,9 @@ public class ProductController {
     public void disableClothes(@PathVariable("id") Clothes clothes) {
         clothesService.disable(clothes);
     }
+
+    @GetMapping("/name-search/{name}")
+    public List<Clothes> searchByName(@PathVariable("name") String name) {
+        return clothesService.findByName(name);
+    }
 }

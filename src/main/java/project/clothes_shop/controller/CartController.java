@@ -79,8 +79,23 @@ public class CartController {
     public ModelAndView showCartPage(HttpSession session) {
         Cart cart = cartService.getCurrentCart(session);
         ModelAndView modelAndView = new ModelAndView("user/cart");
+        double total = 0;
+        for (CartDetail cartDetail : cart.getCartDetails()) {
+            total += cartDetail.getAmount() * cartDetail.getClothes().getClothesDetail().getPrice();
+        }
+        modelAndView.addObject("total", total);
         modelAndView.addObject("cart", cart);
         return modelAndView;
+    }
+
+    @GetMapping("/get-total")
+    public double getTotalFromCart(HttpSession session) {
+        Cart cart = cartService.getCurrentCart(session);
+        double total = 0;
+        for (CartDetail cartDetail : cart.getCartDetails()) {
+            total += cartDetail.getAmount() * cartDetail.getClothes().getClothesDetail().getPrice();
+        }
+        return total;
     }
 
     @GetMapping("/remove-session") // for test

@@ -15,7 +15,6 @@ function addToCart(clothesId, amount, isAdd) {
             // handle code
             if (code === '3') {
                 let divToShowCartSize = $('#for-cart-size');
-                console.log("Size of cart:")
                 let cartSize = divToShowCartSize.text().toString();
                 cartSize = cartSize.substr(1, cartSize.length - 2);
                 cartSize = (+cartSize) + 1;
@@ -37,6 +36,7 @@ $(document).ready(function () {
         console.log(input.attr("id"));
         console.log(input.val());
         addToCart(input.attr("id"), input.val(), 0);
+        getTotal();
     })
     $(document).on("click", ".button-remove-from-cart", function (e) {
         let button;
@@ -68,6 +68,7 @@ $(document).ready(function () {
                 div.append(alert);
             }
         })
+        getTotal();
     })
     $(document).on("click", ".button-add-to-cart", function (e) {
         let clothesId = $('.button-add-to-cart').attr("id");
@@ -76,3 +77,13 @@ $(document).ready(function () {
         e.preventDefault();
     })
 })
+
+function getTotal() {
+    $.ajax({
+        type: "GET",
+        url: "/cart/get-total",
+        success: function (total) {
+            $('.for-show-total').html(total + ' VNĐ');
+        }
+    })
+}

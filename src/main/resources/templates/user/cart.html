@@ -90,10 +90,10 @@
                             <div class="cart-summary">
                                 <div class="cart-content">
                                     <h1>Thông tin giỏ hàng</h1>
-                                    <p>Tổng tiền<span></span> VNĐ</p>
-                                    <p>Phí vận chuyển<span>0</span> VNĐ</p>
-                                    <h2>Tổng đơn hàng<span></span></h2>
-                                    <h2>... VNĐ<span></span></h2>
+                                    <p>Tổng tiền<span th:text="${total+' VNĐ'}" class="for-show-total"></span></p>
+                                    <p>Phí vận chuyển<span>0 VNĐ</span></p>
+                                    <h2>Tổng đơn hàng<span th:text="${total+' VNĐ'}"></span></h2>
+                                    <h2 th:text="${total+' VNĐ'}" class="for-show-total"><span></span></h2>
                                 </div>
                                 <div class="cart-btn">
                                     <button>Hủy giỏ hàng của bạn</button>
